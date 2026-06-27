@@ -1,4 +1,4 @@
-package adopticare;
+package model;
 
 public class User {
 

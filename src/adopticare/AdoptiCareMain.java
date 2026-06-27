@@ -1,89 +1,74 @@
 package adopticare;
 
-import java.sql.*;
+import auth.Register;
+import auth.Login;
 import java.util.Scanner;
 
 public class AdoptiCareMain {
-    
-    public static String login() {
-        Scanner input = new Scanner(System.in);
-        
-        System.out.println("Username: ");
-        String username = input.nextLine();
-        
-        System.out.println("Password: ");
-        String password = input.nextLine();
-        
-        try {
-            Connection con = Database.getConnection();
-            
-            String sql = "SELECT role FROM users" + 
-                         "WHERE username = ? and password = ?";
-            
-            PreparedStatement pst = con.prepareStatement(sql);
-            
-            pst.setString(1, username);
-            pst.setString(2, password);
-            
-            ResultSet rs = pst.executeQuery();
-            
-            if (rs.next()) {
-                return rs.getString("role");
+
+    static Scanner input = new Scanner(System.in);
+
+    public static void startSystem() {
+
+        int choice;
+
+        do {
+            System.out.println("\n===== ADOPTICARE =====");
+
+            System.out.println("1. Login");
+            System.out.println("2. Register");
+            System.out.println("3. Exit");
+
+            System.out.println("Choose: ");
+            choice = input.nextInt();
+            input.nextLine();
+
+            switch (choice) {
+
+                case 1:
+                    handleLogin();
+                    break;
+
+                case 2:
+                    Register.registerCustomer();
+                    break;
+
+                case 3:
+                    System.out.println("Goodbye have a good day!");
+                    break;
+
+                default:
+                    System.out.println("Invalid choice.");
             }
-            
-            con.close();
-        } catch (Exception e) {
-            System.out.println(e);
+        } while (choice != 3);
+    }
+
+    public static void handleLogin() {
+
+        String role = Login.login();
+
+        if (role == null) {
+            System.out.println("Invalid Login.");
+        } else if (role.equals("Administrator")) {
+            adminMenu();
+        } else if (role.equals("Veterinarian")) {
+            veterinarianMenu();
+        } else if (role.equals("Customer")) {
+            customerMenu();
         }
-        
-        return null;
     }
+
+    // =============== MENU ===============
     
-    public static void adminMenu(){
+    public static void adminMenu() {
+        System.out.println("ADMIN MENU (CRUD HERE)");
     }
-    
-    public static void veterinarianMenu(){
+
+    public static void veterinarianMenu() {
+        System.out.println("VETERINARIAN MENU (VACCINATION)");
     }
-    
-    public static void customerMenu(){
-    }
-    
-    public static void addPet(){
-    }
-    
-    public static void viewPets(){
-    }
-    
-    public static void updatePet(){
-    }
-    
-    public static void deletePet(){
-    }
-    
-    public static void searchPet(){
-    }
-    
-    public static void archivePet(){
-    }
-    
-    public static void viewArchivedPets(){
-    }
-    
-    public static void updateVaccination(){
-    }
-    
-    public static void viewVaccinatedPets(){
-    }
-    
-    public static void viewVaccinationSchedule(){
-    }
-    
-    public static void viewAvailablePets() {
-    }
-    
-    public static void viewPetDetails() {
-    }
-    
-    public static void submitAdoptionRequest() {
+
+    public static void customerMenu() {
+        System.out.println("CUSTOMER MENU (VIEW PETS)");
     }
 }
