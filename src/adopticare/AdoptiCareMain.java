@@ -1,7 +1,7 @@
 package adopticare;
 
-import auth.Register;
-import auth.Login;
+import auth.*;
+import menu.*;
 import java.util.Scanner;
 
 public class AdoptiCareMain {
@@ -19,7 +19,7 @@ public class AdoptiCareMain {
             System.out.println("2. Register");
             System.out.println("3. Exit");
 
-            System.out.println("Choose: ");
+            System.out.print("Choose: ");
             choice = input.nextInt();
             input.nextLine();
 
@@ -34,7 +34,7 @@ public class AdoptiCareMain {
                     break;
 
                 case 3:
-                    System.out.println("Goodbye have a good day!");
+                    System.out.println("Thank you for using AdoptiCare!");
                     break;
 
                 default:
@@ -49,26 +49,26 @@ public class AdoptiCareMain {
 
         if (role == null) {
             System.out.println("Invalid Login.");
+
         } else if (role.equals("Administrator")) {
-            adminMenu();
+            Admin.adminMenu();
         } else if (role.equals("Veterinarian")) {
-            veterinarianMenu();
+            Veterinarian.veterinarianMenu();
         } else if (role.equals("Customer")) {
-            customerMenu();
+            Customer.customerMenu();
         }
     }
 
     // =============== MENU ===============
-    
     public static void adminMenu() {
-        System.out.println("ADMIN MENU (CRUD HERE)");
+        System.out.println("ADMIN MENU");
     }
 
     public static void veterinarianMenu() {
-        System.out.println("VETERINARIAN MENU (VACCINATION)");
+        System.out.println("VETERINARIAN MENU");
     }
 
     public static void customerMenu() {
-        System.out.println("CUSTOMER MENU (VIEW PETS)");
+        System.out.println("CUSTOMER MENU");
     }
 }

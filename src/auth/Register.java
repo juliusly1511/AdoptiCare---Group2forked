@@ -14,10 +14,10 @@ public class Register {
             
             System.out.println("\n===== REGISTER =====");
             
-            System.out.println("Username: ");
+            System.out.print("Username: ");
             String username = input.nextLine();
             
-            System.out.println("Password: ");
+            System.out.print("Password: ");
             String password = input.nextLine();
             
             Connection con = DBConnect.getConnection();
@@ -29,7 +29,7 @@ public class Register {
             
             pst.setString(1, username);
             pst.setString(2, password);
-            pst.setString(3, "Customer");
+            pst.setString(3, "Customers");
             
             int rows = pst.executeUpdate();
             

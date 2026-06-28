@@ -16,7 +16,7 @@ public class Login {
             System.out.print("Username: ");
             String username = input.nextLine();
             
-            System.out.println("Password: ");
+            System.out.print("Password: ");
             String password = input.nextLine();
             
             Connection con = DBConnect.getConnection();

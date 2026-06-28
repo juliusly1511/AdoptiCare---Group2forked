@@ -9,6 +9,8 @@ public class Admin {
     static Scanner input = new Scanner(System.in);
 
     public static void adminMenu() {
+        
+        System.out.println("\nWelcome Administrator!");
 
         int choice;
 
@@ -72,20 +74,20 @@ public class Admin {
     public static void addPet() {
 
         try {
-            System.out.println("Pet Name: ");
+            System.out.print("Pet Name: ");
             String name = input.nextLine();
 
-            System.out.println("Species: ");
+            System.out.print("Species: ");
             String species = input.nextLine();
 
-            System.out.println("Breed: ");
+            System.out.print("Breed: ");
             String breed = input.nextLine();
 
-            System.out.println("Age: ");
+            System.out.print("Age: ");
             int age = input.nextInt();
             input.nextLine();
 
-            System.out.println("Health Condition: ");
+            System.out.print("Health Condition: ");
             String healthCondition = input.nextLine();
 
             Connection con = DBConnect.getConnection();
@@ -93,8 +95,8 @@ public class Admin {
             String sql
                     = "INSERT INTO "
                     + "(pet_name, species, breed, age,"
-                    + "health_condition, vaccination_status)"
-                    + " VALUES (?, ?, ?, ?, ?, ?)";
+                    + "health_condition)"
+                    + " VALUES (?, ?, ?, ?, ?)";
 
             PreparedStatement pst = con.prepareStatement(sql);
 
@@ -166,6 +168,27 @@ public class Admin {
             Connection con = DBConnect.getConnection();
             
             String sql = "SELECT * FROM pets WHERE pet_id = ?";
+            
+            PreparedStatement pst = con.prepareStatement(sql);
+            
+            pst.setInt(1, id);
+            
+            ResultSet rs = pst.executeQuery();
+            
+            if(rs.next()) {
+                System.out.println("Name: " + rs.getString("pet_name"));
+                
+                System.out.println("Species: " + rs.getString("species"));
+                
+                System.out.println("Breed: " + rs.getString("breed"));
+                
+                System.out.println("Age: " + rs.getInt("age"));
+                
+            } else {
+                System.out.println("Pet not found.");
+            }
+            
+            con.close();
             
         } catch (Exception e) {
             System.out.println(e);

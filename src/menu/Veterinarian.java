@@ -10,6 +10,8 @@ public class Veterinarian {
     
     public static void veterinarianMenu() {
         
+        System.out.println("\nWelcome Veterinarian!");
+        
         int choice;
         
         do {

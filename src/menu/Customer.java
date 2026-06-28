@@ -8,6 +8,8 @@ public class Customer {
 
     public static void customerMenu() {
         
+        System.out.println("\nWelcome Customer!");
+        
         int choice;
         
         do {
