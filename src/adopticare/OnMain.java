@@ -3,10 +3,10 @@ package adopticare;
 import static adopticare.AdoptiCareMain.*;
 
 
-public class Main {
+public class OnMain {
 
     public static void main(String[] args) {
         
-        AdoptiCareMain.startSystem();
+        AdoptiCareMain.onSystem();
     }
 }

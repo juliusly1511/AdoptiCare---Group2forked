@@ -8,7 +8,7 @@ public class AdoptiCareMain {
 
     static Scanner input = new Scanner(System.in);
 
-    public static void startSystem() {
+    public static void onSystem() {
 
         int choice;
 
@@ -45,6 +45,7 @@ public class AdoptiCareMain {
 
     public static void handleLogin() {
 
+        //Data Validation in where the user will proceed
         String role = Login.login();
 
         if (role == null) {
@@ -57,18 +58,5 @@ public class AdoptiCareMain {
         } else if (role.equals("Customer")) {
             Customer.customerMenu();
         }
-    }
-
-    // =============== MENU ===============
-    public static void adminMenu() {
-        System.out.println("ADMIN MENU");
-    }
-
-    public static void veterinarianMenu() {
-        System.out.println("VETERINARIAN MENU");
-    }
-
-    public static void customerMenu() {
-        System.out.println("CUSTOMER MENU");
     }
 }

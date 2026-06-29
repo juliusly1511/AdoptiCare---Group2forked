@@ -9,7 +9,7 @@ public class Admin {
     static Scanner input = new Scanner(System.in);
 
     public static void adminMenu() {
-        
+
         System.out.println("\nWelcome Administrator!");
 
         int choice;
@@ -94,8 +94,7 @@ public class Admin {
 
             String sql
                     = "INSERT INTO "
-                    + "(pet_name, species, breed, age,"
-                    + "health_condition)"
+                    + "(pet_name, species, breed, age, health_condition)"
                     + " VALUES (?, ?, ?, ?, ?)";
 
             PreparedStatement pst = con.prepareStatement(sql);
@@ -160,36 +159,36 @@ public class Admin {
     // =============== SEARCH PET ===============
     public static void searchPet() {
         try {
-            
+
             System.out.println("Enter Pet ID: ");
             int id = input.nextInt();
             input.nextLine();
-            
+
             Connection con = DBConnect.getConnection();
-            
+
             String sql = "SELECT * FROM pets WHERE pet_id = ?";
-            
+
             PreparedStatement pst = con.prepareStatement(sql);
-            
+
             pst.setInt(1, id);
-            
+
             ResultSet rs = pst.executeQuery();
-            
-            if(rs.next()) {
+
+            if (rs.next()) {
                 System.out.println("Name: " + rs.getString("pet_name"));
-                
+
                 System.out.println("Species: " + rs.getString("species"));
-                
+
                 System.out.println("Breed: " + rs.getString("breed"));
-                
+
                 System.out.println("Age: " + rs.getInt("age"));
-                
+
             } else {
                 System.out.println("Pet not found.");
             }
-            
+
             con.close();
-            
+
         } catch (Exception e) {
             System.out.println(e);
         }
