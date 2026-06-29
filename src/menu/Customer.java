@@ -1,6 +1,7 @@
 package menu;
 
 import java.util.Scanner;
+import customermenu.*;
 
 public class Customer {
 
@@ -29,19 +30,19 @@ public class Customer {
             switch (choice) {
                 
                 case 1:
-                    viewAvailablePets();
+                    ViewAvailablePets.viewAvailablePets();
                     break;
                     
                 case 2:
-                    searchPet();
+                    SearchPet.searchPet();
                     break;
                     
                 case 3:
-                    viewPetDetails();
+                    ViewPetDetails.viewPetDetails();
                     break;
                     
                 case 4:
-                    submitAdoptionRequest();
+                    SubmitAdoptionRequest.submitAdoptionRequest();
                     break;
                     
                 case 5:
@@ -52,21 +53,5 @@ public class Customer {
                     System.out.println("Invalid choice.");
             }
         } while (choice != 5);
-    }
-    
-    public static void viewAvailablePets(){
-        
-    }
-    
-    public static void searchPet(){
-        
-    }
-    
-    public static void viewPetDetails(){
-        
-    }
-    
-    public static void submitAdoptionRequest() {
-        
     }
 }
