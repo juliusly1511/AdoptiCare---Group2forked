@@ -1,6 +1,6 @@
 package adminchoices.create;
 
-import database.DBConnection;
+import database.DbConnection;
 import java.sql.*;
 import java.util.Scanner;
 
@@ -30,12 +30,12 @@ public class AddPet {
             System.out.print("Description: ");
             String description = input.nextLine();
             
-            Connection con = DBConnection.getConnection();
+            Connection con = DbConnection.getConnection();
 
             String sql
                     = "INSERT INTO pets "
                     + "(pet_name, gender, age, species, breed, health_condition, description) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?);";
+                    + "VALUES (?, ?, ?, ?, ?, ?);";
 
             PreparedStatement pst = con.prepareStatement(sql);
 
@@ -44,8 +44,7 @@ public class AddPet {
             pst.setInt(3, age);
             pst.setString(4, species);
             pst.setString(5, breed);
-            pst.setString(6, healthCondition);
-            pst.setString(7, description);
+            pst.setString(6, description);
             
             int rows = pst.executeUpdate();
 

@@ -1,6 +1,6 @@
 package adminchoices.read;
 
-import database.DBConnection;
+import database.DbConnection;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,7 +12,7 @@ public class ViewRequests {
         
         try {
             
-            Connection con = DBConnection.getConnection();
+            Connection con = DbConnection.getConnection();
 
             String sql = 
                     "SELECT * "

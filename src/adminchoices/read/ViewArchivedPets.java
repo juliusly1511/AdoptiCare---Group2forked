@@ -1,6 +1,6 @@
 package adminchoices.read;
 
-import database.DBConnection;
+import database.DbConnection;
 import java.sql.*;
 import java.util.Scanner;
 
@@ -12,7 +12,7 @@ public class ViewArchivedPets {
         
         try {
             
-            Connection con = DBConnection.getConnection();
+            Connection con = DbConnection.getConnection();
             
             String sql = 
                     "SELECT * FROM pets " 

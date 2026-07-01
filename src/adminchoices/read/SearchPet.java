@@ -1,6 +1,6 @@
 package adminchoices.read;
 
-import database.DBConnection;
+import database.DbConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +18,7 @@ public class SearchPet {
             int id = input.nextInt();
             input.nextLine();
 
-            Connection con = DBConnection.getConnection();
+            Connection con = DbConnection.getConnection();
 
             String sql = "SELECT * FROM pets WHERE pet_id = ?";
 

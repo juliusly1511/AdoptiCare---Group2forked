@@ -2,7 +2,7 @@ package adminchoices.update;
 
 import java.util.Scanner;
 import java.sql.*;
-import database.DBConnection;
+import database.DbConnection;
 
 public class ArchivePet {
 
@@ -17,7 +17,7 @@ public class ArchivePet {
             
             input.nextLine();
             
-            Connection con = DBConnection.getConnection();
+            Connection con = DbConnection.getConnection();
             
             String sql = 
                     "UPDATE pets" 

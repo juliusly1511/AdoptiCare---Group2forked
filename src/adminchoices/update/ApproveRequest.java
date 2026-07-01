@@ -1,6 +1,6 @@
 package adminchoices.update;
 
-import database.DBConnection;
+import database.DbConnection;
 import java.util.Scanner;
 
 public class ApproveRequest {

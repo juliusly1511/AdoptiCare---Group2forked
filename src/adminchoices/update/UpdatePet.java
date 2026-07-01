@@ -1,6 +1,6 @@
 package adminchoices.update;
 
-import database.DBConnection;
+import database.DbConnection;
 import java.sql.*;
 import java.util.Scanner;
 
@@ -44,7 +44,7 @@ public class UpdatePet {
             
             input.nextLine();
             
-            Connection con = DBConnection.getConnection();
+            Connection con = DbConnection.getConnection();
             
             String sql = 
                     "UPDATE pets"

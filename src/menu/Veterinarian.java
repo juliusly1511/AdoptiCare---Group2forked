@@ -7,6 +7,7 @@ import vetchoices.read.ViewVaccinatedPets;
 import vetchoices.read.ViewPets;
 import vetchoices.create.AddVaccination;
 import java.util.Scanner;
+import vetchoices.update.UpdatePetMedicalRecords;
 
 
 public class Veterinarian {
@@ -40,7 +41,7 @@ public class Veterinarian {
             switch (choice) {
                 
                 case 1:
-                    AddVaccination.addPet();
+                    AddVaccination.addVaccination();
                     break;
                     
                 case 2:
@@ -48,19 +49,19 @@ public class Veterinarian {
                     break;
                     
                 case 3:
-                    AddVaccination.addPet();
+                    ViewPets.viewPets();
                     break;
                     
                 case 4:
-                    UpdateVaccination.updateVaccination();
-                    break;
-                    
-                case 5:
                     ViewVaccinatedPets.viewVaccinatedPets();
                     break;
                     
-                case 6:
+                case 5:
                     ViewVaccinationSchedule.viewVaccinationSchedule();
+                    break;
+                    
+                case 6:
+                    UpdatePetMedicalRecords.updatePetMedicalRecords();
                     break;
                     
                 case 7:
@@ -71,6 +72,6 @@ public class Veterinarian {
                     System.out.println("Invalid choice.");
             }
             
-        } while (choice != 7);
+        } while (choice != 9);
     }
 }

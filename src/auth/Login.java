@@ -1,6 +1,6 @@
 package auth;
 
-import database.DBConnection;
+import database.DbConnection;
 import java.sql.*;
 import java.util.Scanner;
 
@@ -19,7 +19,7 @@ public class Login {
             System.out.print("Password: ");
             String password = input.nextLine();
             
-            Connection con = DBConnection.getConnection();
+            Connection con = DbConnection.getConnection();
             
             String sql = "SELECT role FROM users WHERE username = ? AND password = ?";
             

@@ -1,6 +1,6 @@
 package adminchoices.delete;
 
-import database.DBConnection;
+import database.DbConnection;
 import java.sql.*;
 import java.util.Scanner;
 
@@ -17,7 +17,7 @@ public class DeletePet {
             
             input.nextLine();
             
-            Connection con = DBConnection.getConnection();
+            Connection con = DbConnection.getConnection();
             
             String sql =
                     "DELETE " 

@@ -1,7 +1,7 @@
 package customerchoices;
 
 import static customerchoices.ViewPetDetails.viewPetDetails;
-import database.DBConnection;
+import database.DbConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,7 +19,7 @@ public class SearchPet {
             System.out.println("Pet Name: ");
             String petName = input.nextLine();
             
-            Connection con = DBConnection.getConnection();
+            Connection con = DbConnection.getConnection();
             
             String sql = 
                     "SELECT * FROM pets WHERE pet_name = ?";
