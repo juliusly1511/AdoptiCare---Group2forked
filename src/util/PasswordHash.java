@@ -4,6 +4,8 @@ import org.mindrot.jbcrypt.BCrypt;
 
 public class PasswordHash {
 
+    //WORKS ONLY ON CUSTOMER
+    
     public static String hashPassword(String password) {
         return BCrypt.hashpw(password, BCrypt.gensalt());
     }

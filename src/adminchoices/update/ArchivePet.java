@@ -12,7 +12,7 @@ public class ArchivePet {
         
         try {
             
-            System.out.println("Enter Pet ID: ");
+            System.out.print("Enter Pet ID: ");
             int petId = input.nextInt();
             
             input.nextLine();
@@ -22,7 +22,7 @@ public class ArchivePet {
             String sql = 
                     "UPDATE pets" 
                     + "SET archived = 1 " 
-                    + "WHERE pet_id = ?";
+                    + "WHERE pet_id = ?;";
             
             PreparedStatement pst = con.prepareStatement(sql);
             
@@ -32,6 +32,8 @@ public class ArchivePet {
             
             if (rows > 0) {
                 System.out.println("Pet archived.");
+            } else {
+                System.out.println("Archive failed.");
             }
             
             con.close();

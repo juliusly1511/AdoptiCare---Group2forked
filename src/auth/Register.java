@@ -36,7 +36,7 @@ public class Register {
             int rows = pst.executeUpdate();
             
             if(rows > 0) {
-                System.out.println("Registration Successfully!");
+                System.out.println("\nRegistration Successfully!");
             }
             
             con.close();

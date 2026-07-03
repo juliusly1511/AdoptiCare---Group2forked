@@ -13,8 +13,7 @@ public class ApproveRequest {
         Scanner input = new Scanner(System.in);
 
         try {
-
-            System.out.println("Request ID: ");
+            System.out.print("Request ID: ");
             int requestId = input.nextInt();
 
             input.nextLine();

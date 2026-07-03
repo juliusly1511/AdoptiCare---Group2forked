@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class UpdatePet {
 
     public static void updatePet() {
-        
+        // switch cases
         Scanner input = new Scanner(System.in);
         
         System.out.println("===== UPDATE PET DETAILS =====");
@@ -64,8 +64,12 @@ public class UpdatePet {
             
             con.close();
             
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
+    }
+    
+    public static void updateName() {
+        
     }
 }

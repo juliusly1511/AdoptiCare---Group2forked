@@ -14,7 +14,7 @@ public class Customer {
 
     public static void customerMenu() {
         
-        System.out.println("\nWelcome Customer!");
+        System.out.println("\nWelcome to AdoptiCare, Customer!");
         
         int choice;
         
@@ -50,7 +50,7 @@ public class Customer {
                     ViewRequestStatus.viewRequestStatus(Login.loggedInUserId);
                     
                 case 5:
-                    System.out.println("Logged out successfully.");
+                    System.out.println("Thank you for using AdoptiCare.");
                     
                     Login.loggedInUserId = -1;
                     

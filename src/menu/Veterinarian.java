@@ -2,7 +2,7 @@
 package menu;
 
 import vetchoices.read.SearchPet;
-import vetchoices.read.ViewVaccinationSchedule;
+import vetchoices.read.ViewPetMedicalRecords;
 import vetchoices.read.ViewVaccinatedPets;
 import vetchoices.read.ViewPets;
 import vetchoices.create.AddVaccination;
@@ -23,7 +23,7 @@ public class Veterinarian {
         do {
             System.out.println("\n===== VETERINARIAN MENU =====");
             
-            System.out.println("1. Add Vaccination");
+            System.out.println("\n1. Add Vaccination");
             System.out.println("2. Search Pet");
             System.out.println("3. View Pets");
             System.out.println("4. View Vaccinated Pets");
@@ -57,7 +57,7 @@ public class Veterinarian {
                     break;
                     
                 case 5:
-                    ViewVaccinationSchedule.viewVaccinationSchedule();
+                    ViewPetMedicalRecords.viewPetMedicalRecords();
                     break;
                     
                 case 6:
@@ -65,7 +65,7 @@ public class Veterinarian {
                     break;
                     
                 case 7:
-                    System.out.println("Logging out...");
+                    System.out.println("Logged out successfully!");
                     break;
                     
                 default:

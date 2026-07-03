@@ -14,7 +14,7 @@ public class AddVaccination {
         
         try {
             
-            System.out.println("Pet ID: ");
+            System.out.println("\nPet ID: ");
             int petId = input.nextInt();
             
             System.out.println("Vaccine Name: ");

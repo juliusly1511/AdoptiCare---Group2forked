@@ -29,12 +29,12 @@ public class Admin {
             System.out.println("3. Update Pet");
             System.out.println("4. Delete Pet");
             System.out.println("5. Search Pet");
-            System.out.println("6. Archived Pet");
+            System.out.println("6. Archive Pet");
             System.out.println("7. View Archived Pets");
             System.out.println("8. View Adoption Requests");
             System.out.println("9. Approve Adoption Request");
             System.out.println("10. Logout");
-
+            
             System.out.print("\nChoose: ");
             choice = input.nextInt();
             input.nextLine();
