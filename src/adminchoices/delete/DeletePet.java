@@ -31,7 +31,7 @@ public class DeletePet {
             int rows = pst.executeUpdate();
             
             if (rows > 0) {
-                System.out.println("Pet deleted.");
+                System.out.println("Pet deleted successfully!");
             } else {
                 System.out.println("Pet not found.");
             }

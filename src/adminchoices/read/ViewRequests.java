@@ -1,14 +1,19 @@
 package adminchoices.read;
 
+import adminchoices.update.ApproveRequest;
+import adminchoices.update.RejectRequest;
 import database.DbConnection;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Scanner;
 
 public class ViewRequests {
 
     public static void viewRequests(){
+        
+        Scanner input = new Scanner(System.in);
         
         try {
             
@@ -44,6 +49,35 @@ public class ViewRequests {
             }
             
             while (rs.next());
+                
+                System.out.println("Enter Request ID to review: ");
+                int reviewId = input.nextInt();
+                
+                //CHOOSE APPROVE OR REJECT
+                
+                System.out.println("What would you like to do?");
+                
+                System.out.println("1. Approve");
+                System.out.println("2. Reject");
+                
+                System.out.print("\nChoose: ");
+                int choice = input.nextInt();
+                
+                input.nextLine();
+                
+                switch (choice) {
+                    case 1:
+                        ApproveRequest.approveRequest();
+                        break;
+                        
+                    case 2:
+                        RejectRequest.rejectRequest();
+                        break;
+                        
+                    default:
+                        System.out.println("Invalid choice, try again.");
+                }
+                
             } else {
                 System.out.println("No adoption request found.");
             }

@@ -21,7 +21,7 @@ public class ArchivePet {
             
             String sql = 
                     "UPDATE pets" 
-                    + "SET archived = TRUE " 
+                    + "SET archived = 1 " 
                     + "WHERE pet_id = ?";
             
             PreparedStatement pst = con.prepareStatement(sql);

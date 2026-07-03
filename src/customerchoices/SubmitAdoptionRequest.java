@@ -1,7 +1,9 @@
 package customerchoices;
 
 import database.DbConnection;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class SubmitAdoptionRequest {
@@ -34,7 +36,9 @@ public class SubmitAdoptionRequest {
                 System.out.println("Adoption request submitted!");
             }
             
-        } catch (Exception e) {
+            con.close();
+            
+        } catch (SQLException e) {
             System.out.println(e);
         }
         

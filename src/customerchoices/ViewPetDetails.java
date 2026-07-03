@@ -46,10 +46,6 @@ public class ViewPetDetails {
 
                 System.out.println("Breed: " + rs.getString("breed"));
 
-                System.out.println("Health Condition: " + rs.getString("health_condition"));
-
-                System.out.println("Vaccination Status: " + rs.getString("vaccination_status"));
-
                 System.out.println("Description: " + rs.getString("description"));
                 
                 System.out.println("\n===== " + rs.getString("pet_name") + "MEDICAL RECORD =====");

@@ -34,12 +34,6 @@ public class UpdatePet {
             System.out.print("Breed: ");
             String breed = input.nextLine();
             
-            System.out.print("Health Condition: ");
-            String healthCondition = input.nextLine();
-            
-            System.out.print("Vaccination Status: ");
-            String vaccinationStatus = input.nextLine();
-            
             System.out.println("");
             
             input.nextLine();
