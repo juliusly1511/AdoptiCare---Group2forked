@@ -37,7 +37,7 @@ public class AddPet {
             String sql
                     = "INSERT INTO pets "
                     + "(pet_name, gender, age, species, breed, description, adoption_status, date_added) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, 'Pending', CURRENT_TIMESTAMP);";
+                    + "VALUES (?, ?, ?, ?, ?, ?, 'Available', CURRENT_TIMESTAMP);";
 
             PreparedStatement pst = con.prepareStatement(sql);
 

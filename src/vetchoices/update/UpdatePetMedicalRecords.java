@@ -72,12 +72,15 @@ public class UpdatePetMedicalRecords {
                 pst.setNull(4, java.sql.Types.TIMESTAMP);
             }
             pst.setString(5, vaccinationStatus);
+            
             pst.setInt(6, vaccinationId);
 
             int rows = pst.executeUpdate();
             
             if (rows > 0) {
                 System.out.println("Updated Successfully!");
+            } else {
+                System.out.println("Update failed.");
             }
             
         } catch (SQLException e) {

@@ -1,5 +1,6 @@
 package customerchoices;
 
+import auth.Login;
 import database.DbConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,7 +15,7 @@ public class SubmitAdoptionRequest {
         
         try {
             
-            System.out.println("Enter Pet ID: ");
+            System.out.print("Enter Pet ID: ");
             int petId = input.nextInt();
 
             input.nextLine();
@@ -23,17 +24,18 @@ public class SubmitAdoptionRequest {
             
             String sql = 
                     "INSERT INTO adoption_requests " 
-                    + "(pet_id, request_date, status, review_date)" 
-                    + "VALUES (?, CURRENT_TIMESTAMP, 'Pending', CURRENT_TIMESTAMP)";
+                    + "(pet_id, user_id, request_date, status, review_date, remarks)" 
+                    + "VALUES (?, ?, CURRENT_TIMESTAMP, 'Pending', CURRENT_TIMESTAMP, 'Waiting for review')";
             
             PreparedStatement pst = con.prepareStatement(sql);
             
-            pst.setInt(2, petId);
+            pst.setInt(1, petId);
+            pst.setInt(2, Login.loggedInUserId);
             
             int rows = pst.executeUpdate();
             
             if (rows > 0) {
-                System.out.println("Adoption request submitted!");
+                System.out.println("Adoption request submitted.");
             }
             
             con.close();

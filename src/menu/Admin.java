@@ -32,7 +32,6 @@ public class Admin {
             System.out.println("6. Archive Pet");
             System.out.println("7. View Archived Pets");
             System.out.println("8. View Adoption Requests");
-            System.out.println("9. Approve Adoption Request");
             System.out.println("10. Logout");
             
             System.out.print("\nChoose: ");
@@ -49,7 +48,7 @@ public class Admin {
                     break;
 
                 case 3:
-                    UpdatePet.updatePet();
+                    UpdatePet.updatePetMenu();
                     break;
 
                 case 4:
@@ -71,9 +70,6 @@ public class Admin {
                 case 8:
                     ViewRequests.viewRequests();
                     break;
-                    
-                case 9:
-                    ApproveRequest.approveRequest();
                     
                 case 10:
                     System.out.println("Logging out...");

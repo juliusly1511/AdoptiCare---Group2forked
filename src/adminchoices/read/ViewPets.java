@@ -17,7 +17,7 @@ public class ViewPets {
 
             System.out.println("\n===== PET LIST =====");
 
-            System.out.printf("%-5s %-15s %-12s %-20s %-5s %-30s %-15s%n,",
+            System.out.printf("%-5s %-15s %-12s %-20s %-5s %-30s %-15s%n",
                     "ID", "Pet Name", "Species", "Breed", "Age", "Description", "Adoption Status");
 
             while (rs.next()) {

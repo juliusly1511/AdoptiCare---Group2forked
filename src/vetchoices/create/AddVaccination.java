@@ -14,16 +14,16 @@ public class AddVaccination {
         
         try {
             
-            System.out.println("\nPet ID: ");
+            System.out.print("\nPet ID: ");
             int petId = input.nextInt();
             
-            System.out.println("Vaccine Name: ");
+            System.out.print("Vaccine Name: ");
             String vaccineName = input.nextLine();
             
-            System.out.println("Last Vaccination Date (yyyy-mm-dd hh:mm:ss): ");
+            System.out.print("Last Vaccination Date (yyyy-mm-dd hh:mm:ss): ");
             String last_vaccination = input.nextLine();
             
-            System.out.println("Next Vaccination Schedule (yyyy-mm-dd hh:mm:ss): ");
+            System.out.print("Next Vaccination Schedule (yyyy-mm-dd hh:mm:ss): ");
             String next_vaccination = input.nextLine();
             
             Timestamp lastVaccinationDate = Timestamp.valueOf(last_vaccination);
@@ -45,7 +45,7 @@ public class AddVaccination {
             int rows = pst.executeUpdate();
             
             if (rows > 0) {
-                System.out.println("Added Successfully!");
+                System.out.println("Record Added Successfully!");
             }
             
         } catch (Exception e) {

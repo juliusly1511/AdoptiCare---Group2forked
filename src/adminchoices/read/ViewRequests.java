@@ -19,16 +19,17 @@ public class ViewRequests {
             
             Connection con = DbConnection.getConnection();
 
-            String sql = 
+            String selectReq = 
                     "SELECT * "
-                    + "FROM adoption_request "
+                    + "FROM adoption_requests "
                     + "WHERE archived = 0";
             
             Statement st = con.createStatement();
             
-            ResultSet rs = st.executeQuery(sql);
+            ResultSet rs = st.executeQuery(selectReq);
             
             if(rs.next()) {
+                
                 do {
                 
                 System.out.println("Request ID: " + rs.getInt("request_id"));
@@ -50,12 +51,12 @@ public class ViewRequests {
             
             while (rs.next());
                 
-                System.out.println("Enter Request ID to review: ");
+                System.out.print("Enter Request ID to review: ");
                 int reviewId = input.nextInt();
                 
                 //CHOOSE APPROVE OR REJECT
                 
-                System.out.println("What would you like to do?");
+                System.out.println("\nWhat would you like to do?");
                 
                 System.out.println("1. Approve");
                 System.out.println("2. Reject");
@@ -67,11 +68,11 @@ public class ViewRequests {
                 
                 switch (choice) {
                     case 1:
-                        ApproveRequest.approveRequest();
+                        ApproveRequest.approveRequest(reviewId);
                         break;
                         
                     case 2:
-                        RejectRequest.rejectRequest();
+                        RejectRequest.rejectRequest(reviewId);
                         break;
                         
                     default:
@@ -83,7 +84,7 @@ public class ViewRequests {
             }
             
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Error: " + e.getMessage());
         }
     }
 }
