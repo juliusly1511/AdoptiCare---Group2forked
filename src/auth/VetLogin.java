@@ -6,8 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
-import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
 
 public class VetLogin {
 
@@ -17,25 +15,59 @@ public class VetLogin {
         try {
             System.out.println("\n===== LOGIN =====");
 
-            System.out.print("Username: ");
-            String username = input.nextLine();
+            String username, password;
 
-            JPasswordField passwordField = new JPasswordField();
-            
-            int option = JOptionPane.showConfirmDialog(
-                    null,
-                    passwordField,
-                    "Password",
-                    JOptionPane.OK_CANCEL_OPTION,
-                    JOptionPane.PLAIN_MESSAGE
-            );
-            
-            if (option != JOptionPane.OK_OPTION) {
-                System.out.println("Login cancelled.");
-                return null;
+            //=====================
+            //CHECK USER VALIDATION
+            //=====================
+            while (true) {
+
+                System.out.print("Username: ");
+                username = input.nextLine();
+
+                if (username.isEmpty()) {
+                    System.out.println("Username cannot be empty!");
+                    continue;
+                }
+
+                if (username.contains(" ")) {
+                    System.out.println("Username cannot contain spaces, use special characters(_).");
+                    continue;
+                }
+
+                if (username.length() < 4) {
+                    System.out.println("Username must be atleast 4 or more than letters!");
+                    continue;
+                }
+
+                break;
             }
-            
-            String password = new String(passwordField.getPassword());
+
+            //=========================
+            //CHECK PASSWORD VALIDATION
+            //=========================
+            while (true) {
+
+                System.out.print("Password: ");
+                password = input.nextLine();
+
+                if (username.isEmpty()) {
+                    System.out.println("Password cannot be empty!");
+                    continue;
+                }
+
+                if (username.contains(" ")) {
+                    System.out.println("Password cannot contain spaces, use special characters(_).");
+                    continue;
+                }
+
+                if (username.length() < 8) {
+                    System.out.println("Password must be atleast 8 or more than letters!");
+                    continue;
+                }
+
+                break;
+            }
 
             Connection con = DbConnection.getConnection();
 
@@ -51,12 +83,12 @@ public class VetLogin {
             if (rs.next()) {
 
                 System.out.println("Login Successfully!");
-                
+
                 return rs.getString("role");
             } else {
                 System.out.println("Incorrect username or password.");
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
 

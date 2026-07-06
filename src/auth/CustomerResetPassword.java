@@ -26,7 +26,9 @@ public class CustomerResetPassword {
                 return;
             }
 
-            //1. Get current password by using SELECT query
+            //==========================================
+            //GET CURRENT PASSWORD BY USING SELECT QUERY
+            //==========================================
             String sql
                     = "SELECT password "
                     + "FROM users "
@@ -42,19 +44,25 @@ public class CustomerResetPassword {
                 return;
             }
             
-            //2. Ask for current password
+            //=========================
+            //ASK FOR CURRENT PASSWORD
+            //=========================
             String storedHashedPassword = rs.getString("password");
             
             System.out.print("Enter current password: ");
             String currentPassword = input.nextLine();
             
-            //3. Verify Current Password
+            //=======================
+            //VERIFY CURRENT PASSWORD
+            //=======================
             if(!BCrypt.checkpw(currentPassword, storedHashedPassword)) {
                 System.out.println("Invalid password: Your password does not match the current password!");
                 return;
             }
             
-            //4. New Password
+            //==================
+            //INPUT NEW PASSWORD
+            //==================
             System.out.print("Enter new password: ");
             String newPassword = input.nextLine();
             
@@ -66,10 +74,14 @@ public class CustomerResetPassword {
                 return;
             }
             
-            //5. Hash new password
+            //=================
+            //HASH NEW PASSWORD
+            //=================
             String hashedNewPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt());
             
-            //6. Update database
+            //===============
+            //UPDATE DATABASE
+            //===============
             String updateSql = "UPDATE users "
                     + "SET password = ? "
                     + "WHERE user_id = ?";

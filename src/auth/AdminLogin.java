@@ -16,12 +16,60 @@ public class AdminLogin {
         try {
             System.out.println("\n===== LOGIN =====");
 
-            System.out.print("Username: ");
-            String username = input.nextLine();
+            String username, password;
             
-            System.out.println("Password: ");
-            String password = input.nextLine();
-            
+            //=====================
+            //CHECK USER VALIDATION
+            //=====================
+            while (true) {
+
+                System.out.print("Username: ");
+                username = input.nextLine();
+
+                if (username.isEmpty()) {
+                    System.out.println("Username cannot be empty!");
+                    continue;
+                }
+
+                if (username.contains(" ")) {
+                    System.out.println("Username cannot contain spaces, use special characters(_).");
+                    continue;
+                }
+
+                if (username.length() < 4) {
+                    System.out.println("Username must be atleast 4 or more than letters!");
+                    continue;
+                }
+
+                break;
+            }
+
+            //=========================
+            //CHECK PASSWORD VALIDATION
+            //=========================
+            while (true) {
+
+                System.out.print("Password: ");
+                password = input.nextLine();
+
+                if (username.isEmpty()) {
+                    System.out.println("Password cannot be empty!");
+                    continue;
+                }
+
+                if (username.contains(" ")) {
+                    System.out.println("Password cannot contain spaces, use special characters(_).");
+                    continue;
+                }
+
+                if (username.length() < 8) {
+                    System.out.println("Password must be atleast 8 or more than letters!");
+                    continue;
+                }
+
+                break;
+            }
+
             Connection con = DbConnection.getConnection();
 
             String queryAdmin = "SELECT user_id, role FROM users WHERE username = ? AND password = ?";
@@ -30,11 +78,11 @@ public class AdminLogin {
 
             pst.setString(1, username);
             pst.setString(2, password);
-            
+
             ResultSet rs = pst.executeQuery();
 
             if (rs.next()) {
-                
+
                 System.out.println("Login Successfully!");
 
                 return rs.getString("role");
