@@ -39,6 +39,8 @@ public class Login {
                 if (BCrypt.checkpw(password, hashedPassword)) {
                     loggedInUserId = rs.getInt("user_id");
                     
+                    System.out.println("Login Successful!");
+                    
                     return rs.getString("role");
                 } else {
                     System.out.println("Incorrect Password");

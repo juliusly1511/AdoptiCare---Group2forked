@@ -28,10 +28,8 @@ public class Veterinarian {
             System.out.println("3. View Pets");
             System.out.println("4. View Vaccinated Pets");
             System.out.println("5. View Vaccination Schedule");
-            System.out.println("6. Update Health Condition");
-            System.out.println("7. Update Vaccination Status");
-            System.out.println("8. Update Vaccination Schedule");
-            System.out.println("9. Logout");
+            System.out.println("6. Update Pet Medical Records Menu");
+            System.out.println("7. Logout");
             
             System.out.print("Choose: ");
             choice = input.nextInt();
@@ -61,7 +59,7 @@ public class Veterinarian {
                     break;
                     
                 case 6:
-                    UpdatePetMedicalRecords.updatePetMedicalRecords();
+                    UpdatePetMedicalRecords.updatePetMedicalRecordsMenu();
                     break;
                     
                 case 7:
@@ -72,6 +70,6 @@ public class Veterinarian {
                     System.out.println("Invalid choice.");
             }
             
-        } while (choice != 9);
+        } while (choice != 7);
     }
 }

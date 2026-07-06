@@ -32,27 +32,36 @@ public class ViewRequestStatus {
 
             ResultSet rs = pst.executeQuery();
 
+            System.out.printf("\n===== REQUEST STATUS =====\n\n");
+
+            System.out.printf("%-12s %-15s %-25s %-10s %-25s %-15s%n",
+                    "Request ID",
+                    "Pet Name",
+                    "Request Date",
+                    "Status",
+                    "Review Date",
+                    "Remarks"
+            );
+
+            System.out.println("--------------------------------------------------------------------------------");
+
             if (rs.next()) {
 
                 do {
-                    System.out.println("\n===== REQUEST STATUS =====");
+                    System.out.printf("%-12d %-15s %-25s %-10s %-25s %-15s%n",
+                            rs.getInt("request_id"),
+                            rs.getString("pet_name"),
+                            rs.getTimestamp("request_date"),
+                            rs.getString("status"),
+                            rs.getTimestamp("review_date"),
+                            rs.getString("remarks")
+                    );
 
-                    System.out.println("Request ID: " + rs.getInt("request_id"));
+                    System.out.println("--------------------------------------------------------------------------------");
 
-                    System.out.println("Pet Name: " + rs.getString("pet_name"));
-
-                    System.out.println("Request Date: " + rs.getTimestamp("request_date"));
-
-                    System.out.println("Status: " + rs.getString("status"));
-
-                    System.out.println("Review Date: " + rs.getTimestamp("review_date"));
-
-                    System.out.println("Remarks: " + rs.getString("remarks"));
-
-                    System.out.println("=========================");
                 } while (rs.next());
             } else {
-                System.out.println("You have no adoption requests.");  
+                System.out.println("You have no adoption requests.");
             }
 
         } catch (SQLException e) {

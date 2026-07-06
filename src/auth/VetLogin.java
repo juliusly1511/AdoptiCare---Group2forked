@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 
 public class VetLogin {
 
@@ -18,8 +20,22 @@ public class VetLogin {
             System.out.print("Username: ");
             String username = input.nextLine();
 
-            System.out.print("Password: ");
-            String password = input.nextLine();
+            JPasswordField passwordField = new JPasswordField();
+            
+            int option = JOptionPane.showConfirmDialog(
+                    null,
+                    passwordField,
+                    "Password",
+                    JOptionPane.OK_CANCEL_OPTION,
+                    JOptionPane.PLAIN_MESSAGE
+            );
+            
+            if (option != JOptionPane.OK_OPTION) {
+                System.out.println("Login cancelled.");
+                return null;
+            }
+            
+            String password = new String(passwordField.getPassword());
 
             Connection con = DbConnection.getConnection();
 
@@ -34,6 +50,8 @@ public class VetLogin {
 
             if (rs.next()) {
 
+                System.out.println("Login Successfully!");
+                
                 return rs.getString("role");
             } else {
                 System.out.println("Incorrect username or password.");

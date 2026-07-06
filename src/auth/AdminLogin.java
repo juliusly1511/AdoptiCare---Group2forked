@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 
 public class AdminLogin {
 
@@ -16,22 +18,24 @@ public class AdminLogin {
 
             System.out.print("Username: ");
             String username = input.nextLine();
-
-            System.out.print("Password: ");
+            
+            System.out.println("Password: ");
             String password = input.nextLine();
-
+            
             Connection con = DbConnection.getConnection();
 
-            String sql = "SELECT user_id, role FROM users WHERE username = ? AND password = ?";
+            String queryAdmin = "SELECT user_id, role FROM users WHERE username = ? AND password = ?";
 
-            PreparedStatement pst = con.prepareStatement(sql);
+            PreparedStatement pst = con.prepareStatement(queryAdmin);
 
             pst.setString(1, username);
             pst.setString(2, password);
-
+            
             ResultSet rs = pst.executeQuery();
 
             if (rs.next()) {
+                
+                System.out.println("Login Successfully!");
 
                 return rs.getString("role");
             } else {

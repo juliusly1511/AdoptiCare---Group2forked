@@ -52,6 +52,8 @@ public class AddPet {
 
             if (rows > 0) {
                 System.out.println("\nPet Added Successfully!");
+            } else {
+                System.out.println("\nPet Added Failed.");
             }
 
         } catch (SQLException e) {

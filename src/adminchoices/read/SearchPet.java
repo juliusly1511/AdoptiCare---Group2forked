@@ -8,10 +8,10 @@ import java.util.Scanner;
 
 public class SearchPet {
 
-        public static void searchPet() {
-            
-            Scanner input = new Scanner(System.in);
-            
+    public static void searchPet() {
+
+        Scanner input = new Scanner(System.in);
+
         try {
 
             System.out.println("Enter Pet ID: ");
@@ -28,16 +28,37 @@ public class SearchPet {
 
             ResultSet rs = pst.executeQuery();
 
+            System.out.printf(
+                    "%-8s %-15s %-12s %-5s %-8s %-15s %-25s%n",
+                    "Pet ID",
+                    "Pet Name",
+                    "Species",
+                    "Age",
+                    "Gender",
+                    "Breed",
+                    "Description"
+            );
+
+            System.out.println("--------------------------------------------------------------------------------");
+
             if (rs.next()) {
-                System.out.println("Pet ID: " + rs.getInt("pet_id"));
-                
-                System.out.println("Pet Name: " + rs.getString("pet_name"));
 
-                System.out.println("Species: " + rs.getString("species"));
+                do {
 
-                System.out.println("Breed: " + rs.getString("breed"));
+                    System.out.printf(
+                            "%-8d %-15s %-12s %-5d %-8s %-15s %-25s%n",
+                            rs.getInt("pet_id"),
+                            rs.getString("pet_name"),
+                            rs.getString("species"),
+                            rs.getInt("age"),
+                            rs.getString("gender"),
+                            rs.getString("breed"),
+                            rs.getString("description")
+                    );
 
-                System.out.println("Age: " + rs.getInt("age"));
+                    System.out.println("--------------------------------------------------------------------------------");
+
+                } while (rs.next());
 
             } else {
                 System.out.println("Pet not found.");

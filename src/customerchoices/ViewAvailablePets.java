@@ -14,7 +14,6 @@ public class ViewAvailablePets {
         try {
             Scanner input = new Scanner(System.in);
 
-            
             System.out.println("\n===== AVAILABLE PETS =====");
 
             Connection con = DbConnection.getConnection();
@@ -27,26 +26,37 @@ public class ViewAvailablePets {
 
             ResultSet rs = st.executeQuery(sql);
 
+            System.out.printf(
+                    "%-8s %-15s %-8s %-5s %-12s %-15s %-25s %-15s%n",
+                    "Pet ID",
+                    "Pet Name",
+                    "Gender",
+                    "Age",
+                    "Species",
+                    "Breed",
+                    "Description",
+                    "Status"
+            );
+
+            System.out.println("--------------------------------------------------------------------------------");
+
             if (rs.next()) {
 
                 do {
 
-                    System.out.println("Pet ID: " + rs.getInt("pet_id"));
+                    System.out.printf(
+                            "%-8d %-15s %-8s %-5d %-12s %-15s %-25s %-15s%n",
+                            rs.getInt("pet_id"),
+                            rs.getString("pet_name"),
+                            rs.getString("gender"),
+                            rs.getInt("age"),
+                            rs.getString("species"),
+                            rs.getString("breed"),
+                            rs.getString("description"),
+                            rs.getString("adoption_status")
+                    );
 
-                    System.out.println("Pet Name: " + rs.getString("pet_name"));
-
-                    System.out.println("Gender: " + rs.getString("gender"));
-
-                    System.out.println("Age: " + rs.getInt("age"));
-
-                    System.out.println("Species: " + rs.getString("species"));
-
-                    System.out.println("Breed:" + rs.getString("breed"));
-
-                    System.out.println("Description: " + rs.getString("description"));
-
-                    System.out.println("Adoption_Status: " + rs.getString("adoption_status"));
-
+                    System.out.println("--------------------------------------------------------------------------------");
                 } while (rs.next());
 
                 System.out.print("\nEnter Pet ID to view details: ");

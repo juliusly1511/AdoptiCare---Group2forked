@@ -14,7 +14,7 @@ public class ViewPetDetails {
         Scanner input = new Scanner(System.in);
 
         try {
-            
+
             System.out.println("\n===== PET DETAILS =====");
 
             Connection con = DbConnection.getConnection();
@@ -32,35 +32,34 @@ public class ViewPetDetails {
 
             ResultSet rs = st.executeQuery(sql);
 
+            System.out.printf(
+                    "%-8s %-15s %-12s %-5s %-8s %-15s %-25s%n",
+                    "Pet ID", "Pet Name", "Species", "Age", "Gender", "Breed", "Description"
+            );
+
+            System.out.println("--------------------------------------------------------------------------------");
+
             if (rs.next()) {
-                
-                System.out.println("\nPet ID: " + rs.getInt("pet_id"));
 
-                System.out.println("Pet Name: " + rs.getString("pet_name"));
+                System.out.printf(
+                        "%-8d %-15s %-12s %-5d %-8s %-15s %-25s%n",
+                        rs.getInt("pet_id"),
+                        rs.getString("pet_name"),
+                        rs.getString("species"),
+                        rs.getInt("age"),
+                        rs.getString("gender"),
+                        rs.getString("breed"),
+                        rs.getString("description")
+                );
 
-                System.out.println("Species: " + rs.getString("species"));
+                System.out.println("\n===== " + rs.getString("pet_name") + " MEDICAL RECORD =====\n");
 
-                System.out.println("Age: " + rs.getInt("age"));
+                System.out.printf("%-30s: %s%n", "Vaccine Name", rs.getString("vaccine_name"));
+                System.out.printf("%-30s: %s%n", "Health Condition", rs.getString("health_condition"));
+                System.out.printf("%-30s: %s%n", "Last Vaccination Date", rs.getTimestamp("last_vaccination_schedule"));
+                System.out.printf("%-30s: %s%n", "Next Vaccination Schedule", rs.getTimestamp("next_vaccination_schedule"));
+                System.out.printf("%-30s: %s%n", "Vaccination Status", rs.getString("vaccination_status"));
 
-                System.out.println("Gender: " + rs.getString("gender"));
-
-                System.out.println("Breed: " + rs.getString("breed"));
-
-                System.out.println("Description: " + rs.getString("description"));
-                
-                System.out.println("\n===== " + rs.getString("pet_name") + "MEDICAL RECORD =====");
-                
-                System.out.println("Vaccine Name: " + rs.getString("vaccine_name"));
-                
-                System.out.println("Health Condition: " + rs.getString("health_condition"));
-                
-                System.out.println("Last Vaccination Date: " + rs.getTimestamp("last_vaccination_schedule"));
-                
-                System.out.println("Next Vaccination Schedule: " + rs.getTimestamp("next_vaccination_schedule"));
-                
-                System.out.println("Vaccination Status: " + rs.getString("vaccination_status"));
-                
-                System.out.println("==============================");
             } else {
                 System.out.println("Pet not found.");
             }

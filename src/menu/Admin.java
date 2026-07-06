@@ -81,15 +81,4 @@ public class Admin {
 
         } while (choice != 10);
     }
-    public static void updatePet() {
-    }
-
-    public static void deletePet() {
-    }
-
-    public static void archivePet() {
-    }
-
-    public static void viewArchivedPets() {
-    }
 }

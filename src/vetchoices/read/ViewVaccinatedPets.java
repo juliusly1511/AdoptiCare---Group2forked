@@ -19,28 +19,39 @@ public class ViewVaccinatedPets {
 
             String sql = "SELECT * "
                     + "FROM pet_medical_records "
-                    + "WHERE vaccination_status = 'Fully Vaccinated'";
+                    + "WHERE vaccination_status = 'Fully Vaccinated' OR vaccination_status = 'Partially Vaccinated'";
 
             Statement st = con.createStatement();
 
             ResultSet rs = st.executeQuery(sql);
 
+            System.out.printf(
+                    "%-15s %-10s %-15s %-20s %-25s %-25s %-15s%n",
+                    "Vaccination ID",
+                    "Pet ID",
+                    "Vaccine Name",
+                    "Health Condition",
+                    "Last Shot",
+                    "Next Shot",
+                    "Status"
+            );
+            System.out.println("--------------------------------------------------------------------------------");
+
             if (rs.next()) {
 
                 while (rs.next()) {
-                    System.out.println("Vaccination ID: " + rs.getInt("vaccination_id"));
+                    System.out.printf(
+                            "%-5d %-10d %-15s %-20s %-25s %-25s %-15s%n",
+                            rs.getInt("vaccination_id"),
+                            rs.getInt("pet_id"),
+                            rs.getString("vaccine_name"),
+                            rs.getString("health_condition"),
+                            rs.getTimestamp("last_vaccination_date"),
+                            rs.getTimestamp("next_vaccination_schedule"),
+                            rs.getString("vaccination_status")
+                    );
 
-                    System.out.println("Pet_ID: " + rs.getInt("pet_id"));
-
-                    System.out.println("Vaccine Name: " + rs.getString("vaccine_name"));
-
-                    System.out.println("Health Condition: " + rs.getString("health_condition"));
-
-                    System.out.println("Last Vaccination Schedule: " + rs.getTimestamp("last_vaccination_date"));
-
-                    System.out.println("Next Vaccination Schedule: " + rs.getTimestamp("next_vaccination_schedule"));
-
-                    System.out.println("Vaccination Status: " + rs.getString("vaccination_status"));
+                    System.out.println("--------------------------------------------------------------------------------");
                 }
             } else {
                 System.out.println("Vaccination status not found.");
