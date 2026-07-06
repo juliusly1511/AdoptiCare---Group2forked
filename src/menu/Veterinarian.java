@@ -5,8 +5,8 @@ import vetchoices.read.SearchPet;
 import vetchoices.read.ViewPetMedicalRecords;
 import vetchoices.read.ViewVaccinatedPets;
 import vetchoices.read.ViewPets;
-import vetchoices.create.AddVaccination;
 import java.util.Scanner;
+import vetchoices.create.AddPetMedicalRecords;
 import vetchoices.update.UpdatePetMedicalRecords;
 
 
@@ -23,7 +23,7 @@ public class Veterinarian {
         do {
             System.out.println("\n===== VETERINARIAN MENU =====");
             
-            System.out.println("\n1. Add Vaccination");
+            System.out.println("\n1. Add Pet Medical Records");
             System.out.println("2. Search Pet");
             System.out.println("3. View Pets");
             System.out.println("4. View Vaccinated Pets");
@@ -39,7 +39,7 @@ public class Veterinarian {
             switch (choice) {
                 
                 case 1:
-                    AddVaccination.addVaccination();
+                    AddPetMedicalRecords.addPetMedicalRecords();
                     break;
                     
                 case 2:

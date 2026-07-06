@@ -14,7 +14,7 @@ public class ViewRequestStatus {
 
             Connection con = DbConnection.getConnection();
 
-            String sql
+            String queryRequest
                     = "SELECT ar.request_id, "
                     + "p.pet_name, "
                     + "ar.request_date, "
@@ -26,7 +26,7 @@ public class ViewRequestStatus {
                     + "ON ar.pet_id = p.pet_id "
                     + "WHERE ar.user_id = ?";
 
-            PreparedStatement pst = con.prepareStatement(sql);
+            PreparedStatement pst = con.prepareStatement(queryRequest);
 
             pst.setInt(1, userId);
 
@@ -61,7 +61,7 @@ public class ViewRequestStatus {
 
                 } while (rs.next());
             } else {
-                System.out.println("You have no adoption requests.");
+                System.out.println("\nYou have no adoption requests.");
             }
 
         } catch (SQLException e) {

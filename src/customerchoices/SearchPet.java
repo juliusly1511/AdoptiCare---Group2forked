@@ -1,12 +1,10 @@
 package customerchoices;
 
-import static customerchoices.ViewPetDetails.viewPetDetails;
 import database.DbConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Scanner;
 
 public class SearchPet {
@@ -15,22 +13,24 @@ public class SearchPet {
 
         try {
 
+            System.out.println("\n===== SEARCH PET =====");
+
             Scanner input = new Scanner(System.in);
 
-            System.out.print("\nEnter Pet Name: ");
-            String petName = input.nextLine();
+            System.out.print("\nBreed: ");
+            String breed = input.nextLine();
 
             Connection con = DbConnection.getConnection();
 
             String sql
-                    = "SELECT * FROM pets WHERE pet_name LIKE ? "
+                    = "SELECT * FROM pets WHERE breed LIKE ? "
                     + "AND archived = 0";
 
             PreparedStatement pst = con.prepareStatement(sql);
 
-            pst.setString(1, "%" + petName + "%");
+            pst.setString(1, "%" + breed + "%");
 
-            ResultSet rs = pst.executeQuery(sql);
+            ResultSet rs = pst.executeQuery();
 
             System.out.printf(
                     "%-8s %-15s %-12s %-5s %-8s %-15s %-25s%n",
@@ -59,7 +59,7 @@ public class SearchPet {
                             rs.getString("breed"),
                             rs.getString("description")
                     );
-                    
+
                     System.out.println("--------------------------------------------------------------------------------");
 
                 } while (rs.next());
@@ -70,7 +70,7 @@ public class SearchPet {
                 ViewPetDetails.viewPetDetails(petId);
 
             } else {
-                System.out.println("Pet not found.");
+                System.out.println("\nPet not found.");
             }
 
         } catch (SQLException e) {

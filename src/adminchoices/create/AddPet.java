@@ -28,7 +28,7 @@ public class AddPet {
 
             System.out.print("Breed: ");
             String breed = input.nextLine();
-
+            
             System.out.print("Description: ");
             String description = input.nextLine();
             

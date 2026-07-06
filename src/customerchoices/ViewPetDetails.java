@@ -19,7 +19,7 @@ public class ViewPetDetails {
 
             Connection con = DbConnection.getConnection();
 
-            String sql
+            String queryDetails
                     = "SELECT p.*, pm.vaccine_name, pm.health_condition, "
                     + "pm.last_vaccination_date, pm.next_vaccination_schedule, "
                     + "pm.vaccination_status "
@@ -30,19 +30,25 @@ public class ViewPetDetails {
 
             Statement st = con.createStatement();
 
-            ResultSet rs = st.executeQuery(sql);
+            ResultSet rs = st.executeQuery(queryDetails);
 
             System.out.printf(
-                    "%-8s %-15s %-12s %-5s %-8s %-15s %-25s%n",
-                    "Pet ID", "Pet Name", "Species", "Age", "Gender", "Breed", "Description"
+                    "%-5s %-15s %-10s %-5s %-8s %-25s %-40s%n",
+                    "ID",
+                    "Pet Name",
+                    "Species",
+                    "Age",
+                    "Gender",
+                    "Breed",
+                    "Description"
             );
 
-            System.out.println("--------------------------------------------------------------------------------");
+            System.out.println("-----------------------------------------------------------------------------------------------");
 
             if (rs.next()) {
 
                 System.out.printf(
-                        "%-8d %-15s %-12s %-5d %-8s %-15s %-25s%n",
+                        "%-5d %-15s %-10s %-5d %-8s %-25s %-40s%n",
                         rs.getInt("pet_id"),
                         rs.getString("pet_name"),
                         rs.getString("species"),
@@ -52,14 +58,37 @@ public class ViewPetDetails {
                         rs.getString("description")
                 );
 
+                System.out.println("--------------------------------------------------------------------------------------------------------------------------------------");
+
                 System.out.println("\n===== " + rs.getString("pet_name") + " MEDICAL RECORD =====\n");
 
-                System.out.printf("%-30s: %s%n", "Vaccine Name", rs.getString("vaccine_name"));
-                System.out.printf("%-30s: %s%n", "Health Condition", rs.getString("health_condition"));
-                System.out.printf("%-30s: %s%n", "Last Vaccination Date", rs.getTimestamp("last_vaccination_schedule"));
-                System.out.printf("%-30s: %s%n", "Next Vaccination Schedule", rs.getTimestamp("next_vaccination_schedule"));
-                System.out.printf("%-30s: %s%n", "Vaccination Status", rs.getString("vaccination_status"));
+                System.out.printf(
+                        "%-15s %-20s %-20s %-20s %-15s %-20s %-20s%n",
+                        "Vaccine",
+                        "Condition",
+                        "Last Shot",
+                        "Next Shot",
+                        "Status",
+                        "Diet",
+                        "Vitamins"
+                );
 
+                do {
+
+                    System.out.printf(
+                            "%-15s %-20s %-25s %-25s %-15s%n",
+                            (rs.getString("vaccine_name") == null ? "N/A" : rs.getString("vaccine_name")),
+                            (rs.getString("health_condition") == null ? "Not yet examined" : rs.getString("health_condition")),
+                            (rs.getTimestamp("last_vaccination_date") == null ? "N/A" : rs.getTimestamp("last_vaccination_date")),
+                            (rs.getTimestamp("next_vaccination_schedule") == null ? "N/A" : rs.getTimestamp("next_vaccination_schedule")),
+                            (rs.getString("vaccination_status") == null ? "Not Vaccinated" : rs.getString("vaccination_status")),
+                            (rs.getString("diet") == null ? "N/A" : rs.getString("diet")),
+                            (rs.getString("vitamins") == null ? "N/A" : rs.getString("vitamins"))
+                    );
+
+                    System.out.println("--------------------------------------------------------------------------------------------------------------------------------------");
+
+                } while (rs.next());
             } else {
                 System.out.println("Pet not found.");
             }

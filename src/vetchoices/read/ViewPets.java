@@ -23,6 +23,8 @@ public class ViewPets {
             System.out.printf("%-5s %-15s %-12s %-20s %-5s %-30s %-15s%n,",
                     "ID", "Pet Name", "Species", "Breed", "Age", "Description", "Adoption Status");
 
+            System.out.println("-------------------------------------------------------------------------------------------------");
+            
             while (rs.next()) {
 
                 System.out.printf("%-5d %-15s %-12s %-20s %-5d %-15s%n",
@@ -34,7 +36,7 @@ public class ViewPets {
                         rs.getString("description"),
                         rs.getString("adoption_status"));
 
-                System.out.println("-------------------------");
+                System.out.println("-------------------------------------------------------------------------------------------------");
             }
 
             con.close();
