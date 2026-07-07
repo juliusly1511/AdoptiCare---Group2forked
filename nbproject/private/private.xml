@@ -3,41 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Lee%20Anthony%20Luna/Documents/NetBeansProjects/AdoptiCare%20-%20Group2/src/adminchoices/read/ViewPets.java</file>
-            <file>file:/C:/Users/Lee%20Anthony%20Luna/Documents/NetBeansProjects/AdoptiCare%20-%20Group2/src/customerchoices/ViewRequestStatus.java</file>
-            <file>file:/C:/Users/Lee%20Anthony%20Luna/Documents/NetBeansProjects/AdoptiCare%20-%20Group2/src/adminchoices/read/ViewRequests.java</file>
-            <file>file:/C:/Users/Lee%20Anthony%20Luna/Documents/NetBeansProjects/AdoptiCare%20-%20Group2/src/vetchoices/update/UpdatePetMedicalRecords.java</file>
-            <file>file:/C:/Users/Lee%20Anthony%20Luna/Documents/NetBeansProjects/AdoptiCare%20-%20Group2/src/auth/VetLogin.java</file>
-            <file>file:/C:/Users/Lee%20Anthony%20Luna/Documents/NetBeansProjects/AdoptiCare%20-%20Group2/src/vetchoices/read/SearchPet.java</file>
-            <file>file:/C:/Users/Lee%20Anthony%20Luna/Documents/NetBeansProjects/AdoptiCare%20-%20Group2/src/adminchoices/create/AddPet.java</file>
-            <file>file:/C:/Users/Lee%20Anthony%20Luna/Documents/NetBeansProjects/AdoptiCare%20-%20Group2/src/vetchoices/read/ViewPetMedicalRecords.java</file>
-            <file>file:/C:/Users/Lee%20Anthony%20Luna/Documents/NetBeansProjects/AdoptiCare%20-%20Group2/src/menu/Veterinarian.java</file>
-            <file>file:/C:/Users/Lee%20Anthony%20Luna/Documents/NetBeansProjects/AdoptiCare%20-%20Group2/src/customerchoices/ViewAvailablePets.java</file>
-            <file>file:/C:/Users/Lee%20Anthony%20Luna/Documents/NetBeansProjects/AdoptiCare%20-%20Group2/src/adopticare/OnMain.java</file>
-            <file>file:/C:/Users/Lee%20Anthony%20Luna/Documents/NetBeansProjects/AdoptiCare%20-%20Group2/src/adopticare/AdoptiCareMain.java</file>
-            <file>file:/C:/Users/Lee%20Anthony%20Luna/Documents/NetBeansProjects/AdoptiCare%20-%20Group2/src/adminchoices/update/RejectRequest.java</file>
-            <file>file:/C:/Users/Lee%20Anthony%20Luna/Documents/NetBeansProjects/AdoptiCare%20-%20Group2/src/adminchoices/update/UpdatePet.java</file>
-            <file>file:/C:/Users/Lee%20Anthony%20Luna/Documents/NetBeansProjects/AdoptiCare%20-%20Group2/src/vetchoices/read/ViewPets.java</file>
-            <file>file:/C:/Users/Lee%20Anthony%20Luna/Documents/NetBeansProjects/AdoptiCare%20-%20Group2/src/adminchoices/delete/DeletePet.java</file>
-            <file>file:/C:/Users/Lee%20Anthony%20Luna/Documents/NetBeansProjects/AdoptiCare%20-%20Group2/src/customerchoices/ViewPetDetails.java</file>
-            <file>file:/C:/Users/Lee%20Anthony%20Luna/Documents/NetBeansProjects/AdoptiCare%20-%20Group2/src/vetchoices/create/AddPetMedicalRecords.java</file>
-            <file>file:/C:/Users/Lee%20Anthony%20Luna/Documents/NetBeansProjects/AdoptiCare%20-%20Group2/src/vetchoices/read/ViewVaccinatedPets.java</file>
-            <file>file:/C:/Users/Lee%20Anthony%20Luna/Documents/NetBeansProjects/AdoptiCare%20-%20Group2/src/util/PasswordHash.java</file>
-            <file>file:/C:/Users/Lee%20Anthony%20Luna/Documents/NetBeansProjects/AdoptiCare%20-%20Group2/src/adminchoices/update/RestoreArchivedPets.java</file>
-            <file>file:/C:/Users/Lee%20Anthony%20Luna/Documents/NetBeansProjects/AdoptiCare%20-%20Group2/src/auth/AdminLogin.java</file>
-            <file>file:/C:/Users/Lee%20Anthony%20Luna/Documents/NetBeansProjects/AdoptiCare%20-%20Group2/src/adminchoices/read/SearchPet.java</file>
-            <file>file:/C:/Users/Lee%20Anthony%20Luna/Documents/NetBeansProjects/AdoptiCare%20-%20Group2/src/auth/Login.java</file>
-            <file>file:/C:/Users/Lee%20Anthony%20Luna/Documents/NetBeansProjects/AdoptiCare%20-%20Group2/src/auth/Register.java</file>
-            <file>file:/C:/Users/Lee%20Anthony%20Luna/Documents/NetBeansProjects/AdoptiCare%20-%20Group2/src/auth/CustomerResetPassword.java</file>
-            <file>file:/C:/Users/Lee%20Anthony%20Luna/Documents/NetBeansProjects/AdoptiCare%20-%20Group2/src/menu/Customer.java</file>
-            <file>file:/C:/Users/Lee%20Anthony%20Luna/Documents/NetBeansProjects/AdoptiCare%20-%20Group2/src/customerchoices/SubmitAdoptionRequest.java</file>
-            <file>file:/C:/Users/Lee%20Anthony%20Luna/Documents/NetBeansProjects/AdoptiCare%20-%20Group2/src/database/DbConnection.java</file>
-            <file>file:/C:/Users/Lee%20Anthony%20Luna/Documents/NetBeansProjects/AdoptiCare%20-%20Group2/src/customerchoices/SearchPet.java</file>
-            <file>file:/C:/Users/Lee%20Anthony%20Luna/Documents/NetBeansProjects/AdoptiCare%20-%20Group2/src/adminchoices/update/ArchivePet.java</file>
-            <file>file:/C:/Users/Lee%20Anthony%20Luna/Documents/NetBeansProjects/AdoptiCare%20-%20Group2/src/menu/Admin.java</file>
-            <file>file:/C:/Users/Lee%20Anthony%20Luna/Documents/NetBeansProjects/AdoptiCare%20-%20Group2/src/adminchoices/read/ViewArchivedPets.java</file>
-            <file>file:/C:/Users/Lee%20Anthony%20Luna/Documents/NetBeansProjects/AdoptiCare%20-%20Group2/src/adminchoices/update/ApproveRequest.java</file>
-            <file>file:/C:/Users/Lee%20Anthony%20Luna/Documents/NetBeansProjects/AdoptiCare%20-%20Group2/src/adminchoices/update/SearchArchivedPet.java</file>
+            <file>file:/C:/Users/USER/Documents/GitHub/AdoptiCare---Group2/src/adopticare/AdoptiCareMain.java</file>
+            <file>file:/C:/Users/USER/Documents/GitHub/AdoptiCare---Group2/src/vetchoices/update/UpdatePetMedicalRecords.java</file>
+            <file>file:/C:/Users/USER/Documents/GitHub/AdoptiCare---Group2/src/customerchoices/SearchPet.java</file>
+            <file>file:/C:/Users/USER/Documents/GitHub/AdoptiCare---Group2/src/menu/Admin.java</file>
+            <file>file:/C:/Users/USER/Documents/GitHub/AdoptiCare---Group2/src/customerchoices/ViewAvailablePets.java</file>
+            <file>file:/C:/Users/USER/Documents/GitHub/AdoptiCare---Group2/src/customerchoices/SubmitAdoptionRequest.java</file>
         </group>
     </open-files>
 </project-private>
