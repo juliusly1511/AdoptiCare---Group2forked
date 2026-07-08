@@ -240,31 +240,67 @@ public class SearchPet {
             System.out.println("1.50 = 1 Year 6 Months");
             System.out.println("===============================\n");
 
+            System.out.println("Search pets by age range.");
+            System.out.println("Example:");
+            System.out.println("Minimum Age = 0");
+            System.out.println("Maximum Age = 10");
+            System.out.println("Displays pets from 0 to 10 years old.");
+
             System.out.println("Enter the pet's age in decimal format based on the legend above.\n"
                     + "Example: 0.50 = 6 Months, 1.25 = 1 Year 3 Months.");
 
-            System.out.print("🎂 Age [0-30] (press [0] to cancel): ");
-            double age;
+            //=========================
+            // MINIMUM AGE
+            //=========================
+            double minAge;
 
             while (true) {
 
+                System.out.print("\n🎂 Minimum Age [0-25] (press [-1] to cancel): ");
+
                 if (!input.hasNextDouble()) {
                     System.out.println("\n⚠ Invalid input: Input must be numerical.\n");
+                    input.nextLine();
                     continue;
                 }
 
-                age = input.nextDouble();
-
+                minAge = input.nextDouble();
                 input.nextLine();
 
-                if (age < 0 || age > 30) {
-                    System.out.println("\n⚠ Invalid input: Age must be between 0 to 30.\n");
+                if (minAge == -1) {
+                    System.out.println("\n↩ Returning to Search Menu...");
+                    return;
+                }
+
+                if (minAge < 0 || minAge > 25) {
+                    System.out.println("\n⚠ Age must be between 0 and 25.\n");
                     continue;
                 }
 
-                if (age == 0) {
-                    System.out.println("↩ Returning to Admin Menu...");
-                    return;
+                break;
+            }
+
+            //=========================
+            // MAXIMUM AGE
+            //=========================
+            double maxAge;
+
+            while (true) {
+
+                System.out.print("🎂 Maximum Age [0-25]: ");
+
+                if (!input.hasNextDouble()) {
+                    System.out.println("\n⚠ Invalid input: Input must be numerical.\n");
+                    input.nextLine();
+                    continue;
+                }
+
+                maxAge = input.nextDouble();
+                input.nextLine();
+
+                if (maxAge < minAge || maxAge > 25) {
+                    System.out.println("\n⚠ Maximum age must be greater than or equal to the minimum age.\n");
+                    continue;
                 }
 
                 break;
@@ -273,12 +309,15 @@ public class SearchPet {
             Connection con = DbConnection.getConnection();
 
             String sqlAge
-                    = "SELECT * FROM pets WHERE age LIKE ? "
-                    + "AND archived = 0";
+                    = "SELECT * FROM pets "
+                    + "WHERE age BETWEEN ? AND ? "
+                    + "AND archived = 0 "
+                    + "ORDER BY age";
 
             PreparedStatement pst = con.prepareStatement(sqlAge);
 
-            pst.setString(1, "%" + age + "%");
+            pst.setDouble(1, minAge);
+            pst.setDouble(2, maxAge);
 
             ResultSet rs = pst.executeQuery();
 

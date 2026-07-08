@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 import menu.Admin;
+import util.ShowPetList;
 
 public class DeletePet {
 
@@ -16,6 +17,8 @@ public class DeletePet {
 
         try {
 
+            Connection con = DbConnection.getConnection();
+            
             System.out.println("\n===== 🗑 DELETE PET =====");
 
             int petId;
@@ -25,6 +28,8 @@ public class DeletePet {
             //==============================
             while (true) {
 
+                ShowPetList.showPetList(con);
+                
                 System.out.print("🆔 Enter Pet ID (press 0 to cancel): ");
 
                 if (!input.hasNextInt()) {
@@ -49,8 +54,6 @@ public class DeletePet {
 
                 break;
             }
-
-            Connection con = DbConnection.getConnection();
 
             String checkSql
                     = "SELECT pet_id, pet_name "

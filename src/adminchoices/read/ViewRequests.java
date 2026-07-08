@@ -97,4 +97,64 @@ public class ViewRequests {
             System.out.println("\n❌ Error: " + e.getMessage());
         }
     }
+    
+    public static void viewArchivedRequests() {
+
+        Scanner input = new Scanner(System.in);
+
+        try {
+
+            Connection con = DbConnection.getConnection();
+
+            String selectReq
+                    = "SELECT * "
+                    + "FROM adoption_requests "
+                    + "WHERE archived = 1";
+
+            Statement st = con.createStatement();
+
+            ResultSet rs = st.executeQuery(selectReq);
+
+            System.out.println("--------------------------------------------------------------------------------------------------------------------------------");
+
+            System.out.printf(
+                    "| %-8s | %-8s | %-8s | %-25s | %-12s | %-25s | %-15s |%n",
+                    "Req ID",
+                    "User ID",
+                    "Pet ID",
+                    "Request Date",
+                    "Status",
+                    "Review Date",
+                    "Remarks"
+            );
+
+            System.out.println("--------------------------------------------------------------------------------------------------------------------------------");
+
+            if (rs.next()) {
+
+                do {
+
+                    System.out.printf(
+                            "| %-8d | %-8d | %-8d | %-25s | %-12s | %-25s | %-15s |%n",
+                            rs.getInt("request_id"),
+                            rs.getInt("user_id"),
+                            rs.getInt("pet_id"),
+                            String.valueOf(rs.getTimestamp("request_date")),
+                            rs.getString("status"),
+                            String.valueOf(rs.getTimestamp("review_date")),
+                            rs.getString("remarks")
+                    );
+
+                    System.out.println("--------------------------------------------------------------------------------------------------------------------------------");
+
+                } while (rs.next());
+
+            } else {
+                System.out.println("\n❌ No adoption request found.\n");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("\n❌ Error: " + e.getMessage());
+        }
+    }
 }

@@ -83,9 +83,6 @@ public class AdoptiCareMain {
             case "Customer":
                 Customer.customerMenu();
                 break;
-                
-            default:
-                System.out.println("\n❌ Invalid role.");
         }
     }
 
@@ -105,9 +102,6 @@ public class AdoptiCareMain {
        switch (role) {
            case "Administrator":
                Admin.adminMenu();
-               
-           default:
-               System.out.println("\n❌ Invalid role.");
        }
     }
 
@@ -127,9 +121,6 @@ public class AdoptiCareMain {
         switch (role) {
             case "Veterinarian":
                 Veterinarian.veterinarianMenu();
-                
-            default:
-                System.out.println("\n❌ Invalid role.");
         }
     }
 }

@@ -13,7 +13,7 @@ public class RejectRequest {
             Connection con = DbConnection.getConnection();
 
             String sql
-                    = "UPDATE adoption_request "
+                    = "UPDATE adoption_requests "
                     + "SET "
                     + "review_date = CURRENT_TIMESTAMP, "
                     + "status = 'Rejected', "

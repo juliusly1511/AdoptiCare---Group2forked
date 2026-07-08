@@ -6,7 +6,7 @@ import adminchoices.read.ViewRequests;
 import adminchoices.read.SearchPet;
 import adminchoices.read.ViewPets;
 import adminchoices.create.AddPet;
-import adminchoices.update.ArchivePetMenu;
+import adminchoices.update.ArchiveMenu;
 import java.util.Scanner;
 
 public class Admin {
@@ -58,19 +58,20 @@ public class Admin {
                     break;
 
                 case 6:
-                    ArchivePetMenu.archivedPetsMenu();
+                    ArchiveMenu.archivedMenu();
                     break;
 
                 case 7:
                     ViewRequests.viewRequests();
                     break;
+                            
                     
                 case 8:
-                    System.out.println("✅ Logout Successfully!");
+                    System.out.println("\n✅ Logout Successfully!");
                     break;
 
                 default:
-                    System.out.println("❌ Invalid option.");
+                    System.out.println("\n❌ Invalid option.");
             }
 
         } while (choice != 8);

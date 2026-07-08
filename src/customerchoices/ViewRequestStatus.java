@@ -40,7 +40,7 @@ public class ViewRequestStatus {
             System.out.printf(
                     "| %-8s | %-12s | %-8s | %-25s | %-12s | %-25s | %-15s |%n",
                     "Req ID",
-                    "Pet Name",
+                    "Pet Name", // change "User ID" -> "Pet Name"
                     "Pet ID",
                     "Request Date",
                     "Status",
@@ -57,7 +57,7 @@ public class ViewRequestStatus {
                     System.out.printf(
                             "| %-8d | %-12s | %-8d | %-25s | %-12s | %-25s | %-15s |%n",
                             rs.getInt("request_id"),
-                            rs.getString("pet_name"),
+                            rs.getString("pet_name"), // change rs.getInt("user_id") -> rs.getString("pet_name")
                             rs.getInt("pet_id"),
                             String.valueOf(rs.getTimestamp("request_date")),
                             rs.getString("status"),

@@ -21,18 +21,11 @@ public class SearchArchivedPet {
             while (true) {
                 System.out.println("\n===== 🔍 SEARCH ARCHIVED PET =====");
 
-                System.out.print("🆔 Enter Pet ID (press 0 to return): ");
+                System.out.print("🆔 Enter Species (type [Cancel] to cancel): ");
 
-                if (!input.hasNextInt()) {
-                    System.out.println("\n⚠ Invalid input: Please enter a number.\n");
-                    input.nextLine();
-                    continue;
-                }
+                String species = input.nextLine();
 
-                int petId = input.nextInt();
-                input.nextLine();
-
-                if (petId == 0) {
+                if (species.equalsIgnoreCase("Cancel")) {
                     System.out.println("\n↩ Returning to Archive Menu...");
                     return;
                 }
@@ -40,11 +33,11 @@ public class SearchArchivedPet {
                 String sql
                         = "SELECT * "
                         + "FROM pets "
-                        + "WHERE pet_id = ? AND archived = 1";
+                        + "WHERE species = ? AND archived = 1";
 
                 PreparedStatement pst = con.prepareStatement(sql);
 
-                pst.setInt(1, petId);
+                pst.setString(1, species);
 
                 ResultSet rs = pst.executeQuery();
 

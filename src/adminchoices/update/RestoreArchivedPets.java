@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
+import static util.ShowPetList.showArchivePetList;
 
 public class RestoreArchivedPets {
 
@@ -18,6 +19,8 @@ public class RestoreArchivedPets {
             
             Connection con = DbConnection.getConnection();
 
+            showArchivePetList(con);
+            
             int petId;
 
             System.out.print("🆔 Enter Pet ID to restore: ");

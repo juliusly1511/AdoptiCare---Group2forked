@@ -2,27 +2,30 @@ package adminchoices.update;
 
 import adminchoices.read.SearchArchivedPet;
 import adminchoices.read.ViewArchivedPets;
+import adminchoices.read.ViewRequests;
 import java.util.Scanner;
 import java.sql.*;
 import database.DbConnection;
 import menu.Admin;
+import static util.ShowPetList.showPetList;
 
-public class ArchivePetMenu {
+public class ArchiveMenu {
 
     static Scanner input = new Scanner(System.in);
 
     //=====================
     //ARCHIVED PET MENU
     //=====================
-    public static void archivedPetsMenu() {
+    public static void archivedMenu() {
 
         while (true) {
-            System.out.println("\n🗄 ===== ARCHIVED PETS MENU =====");
+            System.out.println("\n🗄 ===== ARCHIVED MENU =====");
             System.out.println("[1] 🗃 Archive Pet");
             System.out.println("[2] 📋 View Archived Pets");
-            System.out.println("[3] ♻ Restore Pet");
-            System.out.println("[4] 🔍 Search Archived Pet");
-            System.out.println("[5] ↩ Return to Admin Menu");
+            System.out.println("[3] 📋 View Archived Requests");
+            System.out.println("[4] ♻ Restore Pet");
+            System.out.println("[5] 🔍 Search Archived Pet");
+            System.out.println("[6] ↩ Return to Admin Menu");
 
             System.out.print("\n👉 Choose an Option [1-5]: ");
 
@@ -47,16 +50,20 @@ public class ArchivePetMenu {
                 case 2:
                     ViewArchivedPets.viewArchivedPets();
                     break;
-
+                    
                 case 3:
+                    ViewRequests.viewArchivedRequests();
+                    break;
+                    
+                case 4:
                     RestoreArchivedPets.restorePet();
                     break;
 
-                case 4:
+                case 5:
                     SearchArchivedPet.searchArchivedPet();
                     break;
 
-                case 5:
+                case 6:
                     Admin.adminMenu();
                     System.out.println("\n↩ Returning to Admin Menu...");
                     break;
@@ -74,6 +81,10 @@ public class ArchivePetMenu {
 
         try {
 
+            Connection con = DbConnection.getConnection();
+            
+            showPetList(con);
+            
             System.out.print("\n🆔 Enter Pet ID (press 0 to cancel): ");
             int petId;
 
@@ -95,8 +106,6 @@ public class ArchivePetMenu {
                 
                 break;
             }
-
-            Connection con = DbConnection.getConnection();
 
             String sql
                     = "UPDATE pets "
