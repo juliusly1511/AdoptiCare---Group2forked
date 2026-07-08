@@ -196,32 +196,74 @@ public class UpdatePetMedicalRecords {
             System.out.print("❤ Health Condition: ");
             String health = input.nextLine();
 
-            System.out.print("📅 Last Vaccination Date (yyyy-MM-dd HH:mm:ss): ");
-            String last = input.nextLine();
-
-            Date lastVaccination = null;
-
-            System.out.print("🗓 Next Vaccination Schedule (yyyy-MM-dd HH:mm:ss) [Input [CURDATE()] if already 'Fully Vaccinated']: ");
-            String next = input.nextLine();
-
-            Date nextVaccination = null;
-
             System.out.print("📌 Vaccination Status: ");
             String status = input.nextLine();
+
+            Date lastVaccination = null;
+            Date nextVaccination = null;
+
+            if (status.equalsIgnoreCase("Not Vaccinated")) {
+
+                lastVaccination = null;
+                nextVaccination = null;
+
+            } else {
+
+                //=========================
+                // LAST VACCINATION DATE
+                //=========================
+                while (true) {
+
+                    try {
+
+                        System.out.print("📅 Last Vaccination Date (yyyy-MM-dd): ");
+                        lastVaccination = Date.valueOf(input.nextLine());
+                        break;
+
+                    } catch (IllegalArgumentException e) {
+
+                        System.out.println("\n⚠ Invalid date format.");
+
+                    }
+
+                }
+
+                if (status.equalsIgnoreCase("Partially Vaccinated")) {
+
+                    //======================
+                    // SUGGESTED SCHEDULE
+                    //======================
+                    nextVaccination = Date.valueOf(lastVaccination.toLocalDate().plusYears(1));
+
+                    System.out.println("📅 Suggested Next Vaccination Schedule: "
+                            + nextVaccination);
+
+                    System.out.println("🗓 Enter Next Vaccination Schedule "
+                            + "(Press ENTER to use suggested): ");
+
+                    String customNext = input.nextLine();
+
+                    if (!customNext.trim().isEmpty()) {
+                        nextVaccination = Date.valueOf(customNext);
+                    }
+                } else if (status.equalsIgnoreCase("Fully Vaccinated")) {
+
+                    nextVaccination = null;
+
+                } else {
+
+                    System.out.println("\n❌ Invalid Vaccination Status.");
+                    return;
+
+                }
+
+            }
 
             System.out.print("🍽 Diet: ");
             String diet = input.nextLine();
 
             System.out.print("💊 Vitamins: ");
             String vitamins = input.nextLine();
-
-            if (!last.trim().isEmpty()) {
-                lastVaccination = Date.valueOf(last);
-            }
-
-            if (!next.trim().isEmpty()) {
-                nextVaccination = Date.valueOf(next);
-            }
 
             String sql = "UPDATE pet_medical_records SET "
                     + "vaccine_name=?, health_condition=?, last_vaccination_date=?, "
@@ -233,25 +275,46 @@ public class UpdatePetMedicalRecords {
             pst.setString(1, vaccineName);
             pst.setString(2, health);
 
-            if (lastVaccination != null) {
-                pst.setDate(3, lastVaccination);
-            } else {
+            if (lastVaccination == null) {
                 pst.setNull(3, Types.DATE);
+            } else {
+                pst.setDate(3, lastVaccination);
             }
 
-            if (nextVaccination != null) {
-                pst.setDate(4, nextVaccination);
-            } else {
+            if (nextVaccination == null) {
                 pst.setNull(4, Types.DATE);
+            } else {
+                pst.setDate(4, nextVaccination);
             }
+
             pst.setString(5, status);
             pst.setString(6, diet);
             pst.setString(7, vitamins);
             pst.setInt(8, vaccinationId);
 
-            pst.executeUpdate();
+            int rows = pst.executeUpdate();
 
-            System.out.println("\n✅ Updated successfully!");
+            if (rows > 0) {
+
+                System.out.println("\n✅ Full record updated successfully!");
+
+                if (lastVaccination == null) {
+                    System.out.println("📅 Last Vaccination Date : NULL");
+                } else {
+                    System.out.println("📅 Last Vaccination Date : " + lastVaccination);
+                }
+
+                if (nextVaccination == null) {
+                    System.out.println("📅 Next Vaccination Schedule : NULL");
+                } else {
+                    System.out.println("📅 Next Vaccination Schedule : " + nextVaccination);
+                }
+
+            } else {
+
+                System.out.println("\n❌ Update failed.");
+
+            }
 
             pst.close();
             con.close();

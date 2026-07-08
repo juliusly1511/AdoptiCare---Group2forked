@@ -71,9 +71,14 @@ public class SearchPetMenu {
 
             Scanner input = new Scanner(System.in);
 
-            System.out.print("\n🐾 Species: ");
+            System.out.print("\n🐾 Species (type [Cancel] to cancel): ");
             String species = input.nextLine();
 
+            if (species.equalsIgnoreCase("Cancel")) {
+                System.out.println("↩ Returning to Customer Menu...");
+                return;
+            }
+            
             Connection con = DbConnection.getConnection();
 
             String sql

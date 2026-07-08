@@ -18,11 +18,16 @@ public class SubmitAdoptionRequest {
             Connection con = DbConnection.getConnection();
 
             showPetList(con);
-            
-            System.out.print("🆔 Enter Pet ID: ");
+
+            System.out.print("🆔 Enter Pet ID (press [0] to cancel): ");
             int petId = input.nextInt();
 
             input.nextLine();
+
+            if (petId == 0) {
+                System.out.println("↩ Returning to Customer Menu...");
+                return;
+            }
 
             String sql
                     = "INSERT INTO adoption_requests "
