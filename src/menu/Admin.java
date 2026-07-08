@@ -1,13 +1,12 @@
 package menu;
 
 import adminchoices.delete.DeletePet;
-import adminchoices.update.ArchivePet;
 import adminchoices.update.UpdatePet;
 import adminchoices.read.ViewRequests;
 import adminchoices.read.SearchPet;
 import adminchoices.read.ViewPets;
-import adminchoices.read.ViewArchivedPets;
 import adminchoices.create.AddPet;
+import adminchoices.update.ArchivePetMenu;
 import java.util.Scanner;
 
 public class Admin {
@@ -55,11 +54,11 @@ public class Admin {
                     break;
 
                 case 5:
-                    SearchPet.searchPet();
+                    SearchPet.searchPetMenu();
                     break;
 
                 case 6:
-                    ArchivePet.archivedPetsMenu();
+                    ArchivePetMenu.archivedPetsMenu();
                     break;
 
                 case 7:

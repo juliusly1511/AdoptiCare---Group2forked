@@ -5,10 +5,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.sql.Types;
-import java.time.LocalDateTime;
 import java.util.Scanner;
+import java.sql.Date;
+import java.time.LocalDate;
+import util.ShowPetList;
 
 public class UpdatePetMedicalRecords {
 
@@ -21,18 +22,19 @@ public class UpdatePetMedicalRecords {
 
         do {
 
-            System.out.println("\n===== UPDATE PET MEDICAL RECORDS =====");
-            System.out.println("1. Update Full Vaccination Record");
-            System.out.println("2. Update Vaccine Name");
-            System.out.println("3. Update Health Condition");
-            System.out.println("4. Update Last Vaccination Date");
-            System.out.println("5. Update Next Vaccination Schedule");
-            System.out.println("6. Update Vaccination Status");
-            System.out.println("7. Update Diet");
-            System.out.println("8. Update Vitamins");
-            System.out.println("9. Back");
+            System.out.println("\n===== 🏥 UPDATE PET MEDICAL RECORDS =====");
+            System.out.println("\n⚙ What would you like to update?");
+            System.out.println("[1] 📝 Update Full Vaccination Record");
+            System.out.println("[2] 💉 Update Vaccine Name");
+            System.out.println("[3] ❤ Update Health Condition");
+            System.out.println("[4] 📅 Update Last Vaccination Date");
+            System.out.println("[5] 🗓 Update Next Vaccination Schedule");
+            System.out.println("[6] 📌 Update Vaccination Status");
+            System.out.println("[7] 🍽 Update Diet");
+            System.out.println("[8] 💊 Update Vitamins");
+            System.out.println("[9] ↩ Back");
 
-            System.out.print("\nChoose: ");
+            System.out.print("\n👉 Choose an option [1-10]: ");
             menu = input.nextInt();
             input.nextLine();
 
@@ -70,17 +72,19 @@ public class UpdatePetMedicalRecords {
                     break;
 
                 case 9:
-                    System.out.println("Going back...");
+                    System.out.println("\n↩ Going back...");
                     break;
 
                 default:
-                    System.out.println("Invalid option.");
+                    System.out.println("\n❌ Invalid option.");
             }
 
-        } while (menu != 9);
+        } while (menu != 10);
     }
 
-    // ================= SHOW RECORDS =================
+    //=================
+    // SHOW RECORDS 
+    //=================
     private static void showVaccinations(Connection con, int petId) throws SQLException {
 
         String sql = "SELECT * FROM pet_medical_records WHERE pet_id=?";
@@ -90,27 +94,30 @@ public class UpdatePetMedicalRecords {
 
         ResultSet rs = pst.executeQuery();
 
-        System.out.println("\n===== PET MEDICAL RECORDS =====");
+        System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
         System.out.printf(
-                "%-15s %-7s %-18s %-18s %-20s %-20s %-15s %-15s %-15s%n",
+                "| %-15s | %-8s | %-20s | %-20s | %-25s | %-25s | %-20s | %-15s | %-15s |%n",
                 "Vaccination ID",
                 "Pet ID",
                 "Vaccine Name",
                 "Health Condition",
-                "Last Date",
+                "Last Vaccination",
                 "Next Schedule",
                 "Status",
                 "Diet",
                 "Vitamins"
         );
 
+        System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
         while (rs.next()) {
 
-            String last = String.valueOf(rs.getTimestamp("last_vaccination_date"));
-            String next = String.valueOf(rs.getTimestamp("next_vaccination_schedule"));
+            String last = String.valueOf(rs.getDate("last_vaccination_date"));
+            String next = String.valueOf(rs.getDate("next_vaccination_schedule"));
 
             System.out.printf(
-                    "%-15d %-10d %-15s %-20s %-25s %-25s %-15s %-15s %-15s%n",
+                    "| %-15d | %-8d | %-20s | %-20s | %-25s | %-25s | %-20s | %-15s | %-15s |%n",
                     rs.getInt("vaccination_id"),
                     rs.getInt("pet_id"),
                     rs.getString("vaccine_name"),
@@ -121,6 +128,9 @@ public class UpdatePetMedicalRecords {
                     rs.getString("diet"),
                     rs.getString("vitamins")
             );
+
+            System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
         }
 
         rs.close();
@@ -128,12 +138,12 @@ public class UpdatePetMedicalRecords {
     }
 
     // ================= EXISTS CHECK =================
-    private static boolean exists(Connection con, int id) throws SQLException {
+    private static boolean exists(Connection con, int vaccinationId) throws SQLException {
 
-        String sql = "SELECT 1 FROM pet_medical_records WHERE vaccination_id=?";
+        String sql = "SELECT 1 FROM pet_medical_records WHERE vaccination_id= ?";
 
         PreparedStatement pst = con.prepareStatement(sql);
-        pst.setInt(1, id);
+        pst.setInt(1, vaccinationId);
 
         ResultSet rs = pst.executeQuery();
 
@@ -145,21 +155,32 @@ public class UpdatePetMedicalRecords {
         return found;
     }
 
-    // ================= FULL UPDATE =================
+    //===================
+    // FULL UPDATE
+    //===================
     public static void updateFullRecord() {
 
         try {
 
             Connection con = DbConnection.getConnection();
 
-            System.out.print("Enter Pet ID: ");
+            ShowPetList.showPetVetList(con);
+
+            System.out.println("\n===== 📝 UPDATE FULL RECORD =====");
+
+            System.out.print("🆔 Enter Pet ID (press [0] to cancel): ");
             int petId = input.nextInt();
 
             input.nextLine();
 
+            if (petId == 0) {
+                System.out.println("↩ Returning to Veterinarian Menu...");
+                return;
+            }
+
             showVaccinations(con, petId);
 
-            System.out.print("Enter Vaccination ID: ");
+            System.out.print("🆔 Enter Vaccination ID: ");
             int vaccinationId = input.nextInt();
 
             input.nextLine();
@@ -169,37 +190,37 @@ public class UpdatePetMedicalRecords {
                 return;
             }
 
-            System.out.print("Vaccine Name: ");
+            System.out.print("💉 Vaccine Name: ");
             String vaccineName = input.nextLine();
 
-            System.out.print("Health Condition: ");
+            System.out.print("❤ Health Condition: ");
             String health = input.nextLine();
 
-            System.out.print("Last Vaccination Date (yyyy-MM-dd HH:mm:ss): ");
+            System.out.print("📅 Last Vaccination Date (yyyy-MM-dd HH:mm:ss): ");
             String last = input.nextLine();
 
-            Timestamp lastVaccination = null;
+            Date lastVaccination = null;
 
-            System.out.print("Next Vaccination Schedule (yyyy-MM-dd HH:mm:ss): ");
+            System.out.print("🗓 Next Vaccination Schedule (yyyy-MM-dd HH:mm:ss) [Input [CURDATE()] if already 'Fully Vaccinated']: ");
             String next = input.nextLine();
 
-            Timestamp nextVaccination = null;
+            Date nextVaccination = null;
 
-            System.out.print("Status: ");
+            System.out.print("📌 Vaccination Status: ");
             String status = input.nextLine();
 
-            System.out.print("Diet: ");
+            System.out.print("🍽 Diet: ");
             String diet = input.nextLine();
 
-            System.out.print("Vitamins: ");
+            System.out.print("💊 Vitamins: ");
             String vitamins = input.nextLine();
 
             if (!last.trim().isEmpty()) {
-                lastVaccination = Timestamp.valueOf(last);
+                lastVaccination = Date.valueOf(last);
             }
 
             if (!next.trim().isEmpty()) {
-                nextVaccination = Timestamp.valueOf(next);
+                nextVaccination = Date.valueOf(next);
             }
 
             String sql = "UPDATE pet_medical_records SET "
@@ -213,15 +234,15 @@ public class UpdatePetMedicalRecords {
             pst.setString(2, health);
 
             if (lastVaccination != null) {
-                pst.setTimestamp(3, lastVaccination);
+                pst.setDate(3, lastVaccination);
             } else {
-                pst.setNull(3, Types.TIMESTAMP);
+                pst.setNull(3, Types.DATE);
             }
 
             if (nextVaccination != null) {
-                pst.setTimestamp(4, nextVaccination);
+                pst.setDate(4, nextVaccination);
             } else {
-                pst.setNull(4, Types.TIMESTAMP);
+                pst.setNull(4, Types.DATE);
             }
             pst.setString(5, status);
             pst.setString(6, diet);
@@ -230,35 +251,43 @@ public class UpdatePetMedicalRecords {
 
             pst.executeUpdate();
 
-            System.out.println("Updated successfully!");
+            System.out.println("\n✅ Updated successfully!");
 
             pst.close();
             con.close();
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("\n❌ Error: " + e.getMessage());
         }
     }
 
     // ================= SINGLE FIELD UPDATES =================
     public static void updateVaccinationName() {
-        updateField("vaccine_name", "Vaccination Name");
+
+        System.out.println("\n===== 💉 UPDATE VACCINATION NAME =====");
+
+        updateField("vaccine_name", "💉 Vaccination Name");
     }
 
     public static void updateHealthCondition() {
-        updateField("health_condition", "Health Condition");
-    }
 
-    public static void updateVaccinationStatus() {
-        updateField("vaccination_status", "Status");
+        System.out.println("\n===== ❤ UPDATE HEALTH CONDITION =====");
+
+        updateField("health_condition", "❤ Health Condition");
     }
 
     public static void updateDiet() {
-        updateField("diet", "Diet");
+
+        System.out.println("\n===== 🍽 UPDATE DIET =====");
+
+        updateField("diet", "🍽 Diet");
     }
 
     public static void updateVitamins() {
-        updateField("vitamins", "Vitamins");
+
+        System.out.println("\n===== 💊 UPDATE VITAMINS =====");
+
+        updateField("vitamins", "💊 Vitamins");
     }
 
     public static void updateField(String column, String label) {
@@ -267,12 +296,21 @@ public class UpdatePetMedicalRecords {
 
             Connection con = DbConnection.getConnection();
 
-            System.out.println("\nEnter Pet ID: ");
+            ShowPetList.showPetVetList(con);
+
+            System.out.println("\n🆔 Enter Pet ID (press [0] to cancel): ");
             int petId = input.nextInt();
+
+            input.nextLine();
+
+            if (petId == 0) {
+                System.out.println("↩ Returning to Admin Menu...");
+                return;
+            }
 
             showVaccinations(con, petId);
 
-            System.out.print("Vaccination ID: ");
+            System.out.print("🆔 Vaccination ID: ");
             int id = input.nextInt();
 
             input.nextLine();
@@ -289,13 +327,157 @@ public class UpdatePetMedicalRecords {
 
             pst.executeUpdate();
 
-            System.out.println("Updated successfully!");
+            System.out.println("\n✅ Updated successfully!");
 
             pst.close();
             con.close();
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("\n❌ Error: " + e.getMessage());
+        }
+    }
+
+    public static void updateVaccinationStatus() {
+
+        try {
+
+            Connection con = DbConnection.getConnection();
+
+            ShowPetList.showPetVetList(con);
+
+            System.out.println("\n===== 📌 UPDATE VACCINATION STATUS =====");
+
+            System.out.print("🆔 Enter Pet ID (press [0] to cancel: ");
+            int petId = input.nextInt();
+
+            input.nextLine();
+
+            if (petId == 0) {
+                System.out.println("↩ Returning to Veterinarian Menu...");
+                return;
+            }
+
+            showVaccinations(con, petId);
+
+            System.out.print("🆔 Vaccination ID: ");
+            int vaccinationId = input.nextInt();
+            input.nextLine();
+
+            if (!exists(con, vaccinationId)) {
+                System.out.println("\n❌ Invalid Vaccination ID.");
+                return;
+            }
+
+            System.out.print("📌 New Vaccination Status (Not Vaccinated / Partially Vaccinated / Fully Vaccinated): ");
+            String status = input.nextLine();
+
+            // Get current last vaccination date
+            String select = "SELECT last_vaccination_date FROM pet_medical_records WHERE vaccination_id = ?";
+
+            PreparedStatement pstSelect = con.prepareStatement(select);
+            pstSelect.setInt(1, vaccinationId);
+
+            ResultSet rs = pstSelect.executeQuery();
+
+            Date lastDate = null;
+
+            if (rs.next()) {
+                lastDate = rs.getDate("last_vaccination_date");
+            }
+
+            rs.close();
+            pstSelect.close();
+
+            Date nextSchedule = null;
+
+            if (status.equalsIgnoreCase("Not Vaccinated")) {
+
+                lastDate = null;
+                nextSchedule = null;
+
+            } else if (status.equalsIgnoreCase("Partially Vaccinated")) {
+
+                if (lastDate == null) {
+                    System.out.println("\n⚠ This record has no Last Vaccination Date.");
+                    System.out.println("Please update the Last Vaccination Date first.");
+                    con.close();
+                    return;
+                }
+
+                LocalDate nextDate = lastDate.toLocalDate().plusYears(1);
+                nextSchedule = Date.valueOf(nextDate);
+
+            } else if (status.equalsIgnoreCase("Fully Vaccinated")) {
+
+                if (lastDate == null) {
+                    System.out.println("\n⚠ This record has no Last Vaccination Date.");
+                    System.out.println("Please update the Last Vaccination Date first.");
+                    con.close();
+                    return;
+                }
+
+                nextSchedule = null;
+
+            } else {
+
+                System.out.println("\n❌ Invalid Vaccination Status.");
+                con.close();
+                return;
+
+            }
+
+            String update = "UPDATE pet_medical_records "
+                    + "SET vaccination_status = ?, "
+                    + "last_vaccination_date = ?, "
+                    + "next_vaccination_schedule = ? "
+                    + "WHERE vaccination_id = ?";
+
+            PreparedStatement pst = con.prepareStatement(update);
+
+            pst.setString(1, status);
+
+            if (lastDate == null) {
+                pst.setNull(2, Types.DATE);
+            } else {
+                pst.setDate(2, lastDate);
+            }
+
+            if (nextSchedule == null) {
+                pst.setNull(3, Types.DATE);
+            } else {
+                pst.setDate(3, nextSchedule);
+            }
+
+            pst.setInt(4, vaccinationId);
+
+            int rows = pst.executeUpdate();
+
+            if (rows > 0) {
+                System.out.println("\n✅ Vaccination status updated successfully!");
+
+                if (lastDate != null) {
+                    System.out.println("📅 Last Vaccination Date : " + lastDate);
+                } else {
+                    System.out.println("📅 Last Vaccination Date : NULL");
+                }
+
+                if (nextSchedule != null) {
+                    System.out.println("📅 Next Vaccination Schedule : " + nextSchedule);
+                } else {
+                    System.out.println("📅 Next Vaccination Schedule : NULL");
+                }
+
+            } else {
+                System.out.println("\n❌ Update failed.");
+            }
+
+            pst.close();
+            con.close();
+
+        } catch (SQLException e) {
+
+            System.out.println("\n❌ Error: " + e.getMessage());
+
         }
     }
 
@@ -305,50 +487,133 @@ public class UpdatePetMedicalRecords {
 
             Connection con = DbConnection.getConnection();
 
-            System.out.print("\nEnter Pet ID: ");
+            ShowPetList.showPetVetList(con);
+
+            System.out.println("\n===== 📅 UPDATE LAST VACCINATION DATE =====");
+
+            System.out.print("🆔 Enter Pet ID (press [0] to cancel): ");
             int petId = input.nextInt();
 
             input.nextLine();
 
+            if (petId == 0) {
+                System.out.println("↩ Returning to Veterinarian Menu...");
+                return;
+            }
+
             showVaccinations(con, petId);
 
-            System.out.print("Vaccination ID: ");
-            int id = input.nextInt();
+            System.out.print("🆔 Vaccination ID: ");
+            int vaccinationId = input.nextInt();
+            input.nextLine();
 
-            System.out.print("Last Vaccination Date (yyyy-MM-dd HH-mm-ss): ");
-            String lastVaccination = input.nextLine();
-
-            Timestamp lastVaccinationDate = null;
-
-            if (!lastVaccination.trim().isEmpty()) {
-                lastVaccinationDate = Timestamp.valueOf(lastVaccination);
+            if (!exists(con, vaccinationId)) {
+                System.out.println("\n❌ Invalid Vaccination ID.");
+                return;
             }
 
-            String queryDate
-                    = "UPDATE pet_medical_records "
-                    + "SET last_vaccination_date = ? "
+            // Get current vaccination status
+            String select = "SELECT vaccination_status FROM pet_medical_records WHERE vaccination_id = ?";
+
+            PreparedStatement pstSelect = con.prepareStatement(select);
+            pstSelect.setInt(1, vaccinationId);
+
+            ResultSet rs = pstSelect.executeQuery();
+
+            if (!rs.next()) {
+                System.out.println("\n❌ Record not found.");
+                rs.close();
+                pstSelect.close();
+                con.close();
+                return;
+            }
+
+            String status = rs.getString("vaccination_status");
+
+            rs.close();
+            pstSelect.close();
+
+            // Not Vaccinated cannot have a last vaccination date
+            if (status.equalsIgnoreCase("Not Vaccinated")) {
+
+                System.out.println("\n⚠ This pet is marked as 'Not Vaccinated'.");
+                System.out.println("Change the vaccination status first before adding a vaccination date.");
+
+                con.close();
+                return;
+            }
+
+            System.out.print("📅 New Last Vaccination Date (yyyy-MM-dd): ");
+            Date lastDate = Date.valueOf(input.nextLine());
+
+            Date nextSchedule = null;
+
+            // Auto-generate next schedule only for Partially Vaccinated
+            if (status.equalsIgnoreCase("Partially Vaccinated")) {
+
+                // Suggested next schedule (1 year)
+                LocalDate suggestedDate = lastDate.toLocalDate().plusYears(1);
+                nextSchedule = Date.valueOf(suggestedDate);
+
+                System.out.println("📅 Suggested Next Vaccination Schedule: " + nextSchedule);
+
+                System.out.print("🗓 Enter Next Vaccination Schedule (Press [ENTER] to use suggested): ");
+                String customNext = input.nextLine();
+
+                if (!customNext.trim().isEmpty()) {
+                    nextSchedule = Date.valueOf(customNext);
+                }
+
+            } else if (status.equalsIgnoreCase("Fully Vaccinated")) {
+                // Fully Vaccinated -> nextSchedule remains NULL
+
+                nextSchedule = null;
+            }
+
+            String update = "UPDATE pet_medical_records "
+                    + "SET last_vaccination_date = ?, "
+                    + "next_vaccination_schedule = ? "
                     + "WHERE vaccination_id = ?";
 
-            PreparedStatement pstDate = con.prepareStatement(queryDate);
+            PreparedStatement pst = con.prepareStatement(update);
 
-            if (lastVaccinationDate != null) {
-                pstDate.setTimestamp(1, lastVaccinationDate);
+            pst.setDate(1, lastDate);
+
+            if (nextSchedule == null) {
+                pst.setNull(2, Types.DATE);
             } else {
-                pstDate.setNull(1, java.sql.Types.TIMESTAMP);
+                pst.setDate(2, nextSchedule);
             }
 
-            pstDate.setInt(2, id);
+            pst.setInt(3, vaccinationId);
 
-            int rows = pstDate.executeUpdate();
+            int rows = pst.executeUpdate();
 
             if (rows > 0) {
-                System.out.println("\nLast vaccination date updated successfully!");
+
+                System.out.println("\n✅ Last vaccination date updated successfully!");
+
+                if (nextSchedule != null) {
+                    System.out.println("📅 Next Vaccination Schedule automatically updated to: " + nextSchedule);
+                } else {
+                    System.out.println("📅 Next Vaccination Schedule remains: NULL");
+                }
+
             } else {
-                System.out.println("\nUpdate failed. Invalid Vaccination ID.");
+
+                System.out.println("\n❌ Update failed.");
+
             }
 
+            pst.close();
+            con.close();
+
+        } catch (IllegalArgumentException e) {
+
+            System.out.println("\n❌ Invalid date format. Use yyyy-MM-dd.");
+
         } catch (SQLException e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("\n❌ Error: " + e.getMessage());
         }
     }
 
@@ -358,48 +623,77 @@ public class UpdatePetMedicalRecords {
 
             Connection con = DbConnection.getConnection();
 
-            System.out.print("\nEnter Pet ID: ");
+            ShowPetList.showPetVetList(con);
+
+            System.out.println("\n===== 🗓 UPDATE NEXT VACCINATION SCHEDULE =====");
+
+            System.out.print("🆔 Enter Pet ID: ");
             int petId = input.nextInt();
 
             showVaccinations(con, petId);
 
-            System.out.print("Vaccination ID: ");
-            int id = input.nextInt();
+            System.out.print("🆔 Vaccination ID: ");
+            int vaccinationId = input.nextInt();
+            input.nextLine();
 
-            System.out.print("Last Vaccination Date (yyyy-MM-dd HH-mm-ss): ");
-            String lastVaccination = input.nextLine();
-
-            Timestamp lastVaccinationDate = null;
-
-            if (!lastVaccination.trim().isEmpty()) {
-                lastVaccinationDate = Timestamp.valueOf(lastVaccination);
+            if (!exists(con, vaccinationId)) {
+                System.out.println("\n❌ Invalid Vaccination ID.");
+                con.close();
+                return;
             }
 
-            String queryDate
-                    = "UPDATE pet_medical_records "
+            System.out.print("🗓 New Next Vaccination Schedule (yyyy-MM-dd)\n");
+            System.out.print("   (Press ENTER to set NULL): ");
+
+            String nextInput = input.nextLine();
+
+            Date nextSchedule = null;
+
+            if (!nextInput.trim().isEmpty()) {
+                nextSchedule = Date.valueOf(nextInput);
+            }
+
+            String sql = "UPDATE pet_medical_records "
                     + "SET next_vaccination_schedule = ? "
                     + "WHERE vaccination_id = ?";
 
-            PreparedStatement pstDate = con.prepareStatement(queryDate);
+            PreparedStatement pst = con.prepareStatement(sql);
 
-            if (lastVaccinationDate != null) {
-                pstDate.setTimestamp(1, lastVaccinationDate);
+            if (nextSchedule == null) {
+                pst.setNull(1, Types.DATE);
             } else {
-                pstDate.setNull(1, java.sql.Types.TIMESTAMP);
+                pst.setDate(1, nextSchedule);
             }
 
-            pstDate.setInt(2, id);
+            pst.setInt(2, vaccinationId);
 
-            int rows = pstDate.executeUpdate();
+            int rows = pst.executeUpdate();
 
             if (rows > 0) {
-                System.out.println("\nNext vaccination schedule updated successfully!");
+
+                System.out.println("\n✅ Next Vaccination Schedule updated successfully!");
+
+                if (nextSchedule == null) {
+                    System.out.println("📅 Next Vaccination Schedule: NULL");
+                } else {
+                    System.out.println("📅 Next Vaccination Schedule: " + nextSchedule);
+                }
+
             } else {
-                System.out.println("\nUpdate failed. Invalid Vaccination ID.");
+
+                System.out.println("\n❌ Update failed.");
+
             }
 
+            pst.close();
+            con.close();
+
+        } catch (IllegalArgumentException e) {
+
+            System.out.println("\n❌ Invalid date format. Please use yyyy-MM-dd.");
+
         } catch (SQLException e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("\n❌ Error: " + e.getMessage());
         }
     }
 }

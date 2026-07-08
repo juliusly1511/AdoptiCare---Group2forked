@@ -1,4 +1,4 @@
-package adminchoices.read;
+package customerchoices;
 
 import database.DbConnection;
 import java.sql.Connection;
@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 import util.AgeConverter;
 
-public class SearchPet {
+public class SearchPetMenu {
 
     //================
     //SEARCH PET MENU
@@ -51,7 +51,7 @@ public class SearchPet {
                     break;
 
                 case 4:
-                    System.out.println("\n↩ Going back...");
+                    System.out.println("/n↩ Going back...");
                     return;
 
                 default:
@@ -71,13 +71,8 @@ public class SearchPet {
 
             Scanner input = new Scanner(System.in);
 
-            System.out.print("🐾 Species (type [Cancel] to cancel): ");
+            System.out.print("\n🐾 Species: ");
             String species = input.nextLine();
-
-            if (species.equalsIgnoreCase("Cancel")) {
-                System.out.println("↩ Returning to Admin Menu...");
-                return;
-            }
 
             Connection con = DbConnection.getConnection();
 
@@ -124,9 +119,24 @@ public class SearchPet {
                     );
 
                     System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-
+                    
                 } while (rs.next());
 
+                System.out.print("\n🆔 Enter Pet ID to see more details (press 0 to cancel): ");
+
+                if (!input.hasNextInt()) {
+                    System.out.println("\n❌ Invalid input. Returning to menu...");
+                    return;
+                }
+
+                int petId = input.nextInt();
+
+                if (petId == 0) {
+                    System.out.println("\n↩ Returning to menu...");
+                    return;
+                }
+
+                ViewPetDetails.viewPetDetails(petId);
             } else {
                 System.out.println("\n❌ Pet not found.");
             }
@@ -147,13 +157,8 @@ public class SearchPet {
 
             Scanner input = new Scanner(System.in);
 
-            System.out.print("🏷 Breed (type [Cancel] to cancel): ");
+            System.out.print("\n🏷 Breed: ");
             String breed = input.nextLine();
-
-            if (breed.equalsIgnoreCase("Cancel")) {
-                System.out.println("↩ Returning to Admin Menu...");
-                return;
-            }
 
             Connection con = DbConnection.getConnection();
 
@@ -203,6 +208,21 @@ public class SearchPet {
 
                 } while (rs.next());
 
+                System.out.print("\n🆔 Enter Pet ID to see more details (press 0 to cancel): ");
+
+                if (!input.hasNextInt()) {
+                    System.out.println("❌ Invalid input. Returning to menu...");
+                    return;
+                }
+
+                int petId = input.nextInt();
+
+                if (petId == 0) {
+                    System.out.println("↩ Returning to menu...");
+                    return;
+                }
+
+                ViewPetDetails.viewPetDetails(petId);
             } else {
                 System.out.println("\n❌ Pet not found.");
             }
@@ -223,28 +243,9 @@ public class SearchPet {
 
             Scanner input = new Scanner(System.in);
 
-            System.out.println("\n========== AGE LEGEND ==========");
-            System.out.println("0.08 = 1 Month");
-            System.out.println("0.17 = 2 Months");
-            System.out.println("0.25 = 3 Months");
-            System.out.println("0.33 = 4 Months");
-            System.out.println("0.42 = 5 Months");
-            System.out.println("0.50 = 6 Months");
-            System.out.println("0.58 = 7 Months");
-            System.out.println("0.67 = 8 Months");
-            System.out.println("0.75 = 9 Months");
-            System.out.println("0.83 = 10 Months");
-            System.out.println("0.92 = 11 Months");
-            System.out.println("1.00 = 1 Year");
-            System.out.println("1.25 = 1 Year 3 Months");
-            System.out.println("1.50 = 1 Year 6 Months");
-            System.out.println("===============================\n");
-
-            System.out.println("Enter the pet's age in decimal format based on the legend above.\n"
-                    + "Example: 0.50 = 6 Months, 1.25 = 1 Year 3 Months.");
-
-            System.out.print("🎂 Age [0-30] (press [0] to cancel): ");
             double age;
+
+            System.out.print("🎂 Age [0-30]: ");
 
             while (true) {
 
@@ -254,17 +255,11 @@ public class SearchPet {
                 }
 
                 age = input.nextDouble();
-
                 input.nextLine();
 
                 if (age < 0 || age > 30) {
                     System.out.println("\n⚠ Invalid input: Age must be between 0 to 30.\n");
                     continue;
-                }
-
-                if (age == 0) {
-                    System.out.println("↩ Returning to Admin Menu...");
-                    return;
                 }
 
                 break;
@@ -318,6 +313,21 @@ public class SearchPet {
 
                 } while (rs.next());
 
+                System.out.print("\n🆔 Enter Pet ID to see more details (press 0 to cancel): ");
+
+                if (!input.hasNextInt()) {
+                    System.out.println("\n❌ Invalid input. Returning to menu...");
+                    return;
+                }
+
+                int petId = input.nextInt();
+
+                if (petId == 0) {
+                    System.out.println("\n↩ Returning to menu...");
+                    return;
+                }
+
+                ViewPetDetails.viewPetDetails(petId);
             } else {
                 System.out.println("\n❌ Pet not found.");
             }

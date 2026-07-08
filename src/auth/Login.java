@@ -30,12 +30,14 @@ public class Login {
                 username = input.nextLine();
 
                 if (username.isEmpty()) {
-                    System.out.println("\n⚠ Username cannot be empty!\n");
+                    System.out.println("\n⚠ Username cannot be empty.");
+                    System.out.println("👉 Please enter a username.\n");
                     continue;
                 }
 
                 if (username.contains(" ")) {
-                    System.out.println("\n⚠ Username cannot contain spaces, use special characters(_).\n");
+                    System.out.println("\n⚠ Username cannot contain spaces.");
+                    System.out.println("👉 Use letters, numbers, or underscores (_).\n");
                     continue;
                 }
 
@@ -56,12 +58,14 @@ public class Login {
                 password = input.nextLine();
 
                 if (password.isEmpty()) {
-                    System.out.println("\n⚠ Password cannot be empty!\n");
+                    System.out.println("\n⚠ Password cannot be empty!");
+                    System.out.println("👉 Please enter a password.\n");
                     continue;
                 }
 
                 if (password.contains(" ")) {
-                    System.out.println("\n⚠ Password cannot contain spaces, use special characters(_).\n");
+                    System.out.println("\n⚠ Password cannot contain spaces.");
+                    System.out.println("👉 Use letters, numbers, or underscores (_).\n");
                     continue;
                 }
 
@@ -69,10 +73,10 @@ public class Login {
                     System.out.println("\n⚠ Password must be atleast 8 or more than characters!\n");
                     continue;
                 }
-                
+
                 break;
             }
-            
+
             Connection con = DbConnection.getConnection();
 
             String sql = "SELECT user_id, password, role FROM users WHERE username = ?";

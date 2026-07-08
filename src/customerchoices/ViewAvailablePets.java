@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
+import util.AgeConverter;
 
 public class ViewAvailablePets {
 
@@ -26,8 +27,10 @@ public class ViewAvailablePets {
 
             ResultSet rs = st.executeQuery(sql);
 
+            System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
             System.out.printf(
-                    "%-8s %-15s %-8s %-5s %-12s %-15s %-25s %-15s%n",
+                    "| %-6s | %-15s | %-8s | %-14s | %-10s | %-15s | %-30s | %-12s |%n",
                     "Pet ID",
                     "Pet Name",
                     "Gender",
@@ -38,49 +41,49 @@ public class ViewAvailablePets {
                     "Status"
             );
 
-            System.out.println("--------------------------------------------------------------------------------");
+            System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 
             if (!rs.next()) {
                 System.out.println("\n❌ No pets available.");
                 return;
             }
 
-                do {
+            do {
 
-                    System.out.printf(
-                            "%-8d %-15s %-8s %-5d %-12s %-15s %-25s %-15s%n",
-                            rs.getInt("pet_id"),
-                            rs.getString("pet_name"),
-                            rs.getString("gender"),
-                            rs.getInt("age"),
-                            rs.getString("species"),
-                            rs.getString("breed"),
-                            rs.getString("description"),
-                            rs.getString("adoption_status")
-                    );
+                System.out.printf(
+                        "| %-6d | %-15s | %-8s | %-14s | %-10s | %-15s | %-30s | %-12s |%n",
+                        rs.getInt("pet_id"),
+                        rs.getString("pet_name"),
+                        rs.getString("gender"),
+                        AgeConverter.convertAge(rs.getDouble("age")),
+                        rs.getString("species"),
+                        rs.getString("breed"),
+                        rs.getString("description"),
+                        rs.getString("adoption_status")
+                );
 
-                    System.out.println("--------------------------------------------------------------------------------");
-                } while (rs.next());
-
-                System.out.print("\n👉 Enter Pet ID to see more details (press 0 to cancel): ");
+                System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
                 
-                if(!input.hasNextInt()) {
-                    System.out.println("❌ Invalid input. Returning to menu...");
-                    return;
-                }
-                
-                int petId = input.nextInt();
+            } while (rs.next());
 
-                if (petId == 0) {
-                    System.out.println("↩ Returning to menu...");
-                    return;
-                }
-                
-                ViewPetDetails.viewPetDetails(petId);
-            
+            System.out.print("\n🆔 Enter Pet ID to see more details (press 0 to cancel): ");
+
+            if (!input.hasNextInt()) {
+                System.out.println("\n❌ Invalid input. Returning to menu...");
+                return;
+            }
+
+            int petId = input.nextInt();
+
+            if (petId == 0) {
+                System.out.println("\n↩ Returning to menu...");
+                return;
+            }
+
+            ViewPetDetails.viewPetDetails(petId);
 
         } catch (SQLException e) {
-            System.out.println("❌ Error: " + e.getMessage());
+            System.out.println("\n❌ Error: " + e.getMessage());
         }
     }
 }

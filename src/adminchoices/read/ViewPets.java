@@ -2,6 +2,7 @@ package adminchoices.read;
 
 import database.DbConnection;
 import java.sql.*;
+import util.AgeConverter;
 
 public class ViewPets {
 
@@ -15,34 +16,47 @@ public class ViewPets {
 
             ResultSet rs = st.executeQuery(sql);
 
-            System.out.println("\n===== PET LIST =====");
+            System.out.println("\n===== 🐾 PET LIST =====");
+
+            System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 
             System.out.printf(
-                    "%-5s %-15s %-12s %-18s %-5s %-35s %-15s%n",
-                    "ID", "Pet Name", "Species", "Breed", "Age", "Description", "Status"
+                    "| %-6s | %-15s | %-8s | %-14s | %-10s | %-15s | %-30s | %-12s |%n",
+                    "Pet ID",
+                    "Pet Name",
+                    "Gender",
+                    "Age",
+                    "Species",
+                    "Breed",
+                    "Description",
+                    "Status"
             );
-            System.out.println("--------------------------------------------------------------------------------");
+
+            System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 
             while (rs.next()) {
 
                 System.out.printf(
-                        "%-5d %-15s %-12s %-20s %-5d %-30s %-15s%n",
+                        "| %-6d | %-15s | %-8s | %-14s | %-10s | %-15s | %-30s | %-12s |%n",
                         rs.getInt("pet_id"),
                         rs.getString("pet_name"),
+                        rs.getString("gender"),
+                        AgeConverter.convertAge(rs.getDouble("age")),
                         rs.getString("species"),
                         rs.getString("breed"),
-                        rs.getInt("age"),
                         rs.getString("description"),
                         rs.getString("adoption_status")
                 );
 
-                System.out.println("--------------------------------------------------------------------------------");
+                System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+                
             }
 
             con.close();
             rs.close();
+            
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("❌ Error: " + e.getMessage());
         }
     }
 }

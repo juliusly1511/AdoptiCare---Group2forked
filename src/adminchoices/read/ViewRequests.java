@@ -28,8 +28,10 @@ public class ViewRequests {
 
             ResultSet rs = st.executeQuery(selectReq);
 
+            System.out.println("--------------------------------------------------------------------------------------------------------------------------------");
+
             System.out.printf(
-                    "%-10s %-8s %-8s %-25s %-12s %-25s %-15s%n",
+                    "| %-8s | %-8s | %-8s | %-25s | %-12s | %-25s | %-15s |%n",
                     "Req ID",
                     "User ID",
                     "Pet ID",
@@ -38,37 +40,38 @@ public class ViewRequests {
                     "Review Date",
                     "Remarks"
             );
-            System.out.println("--------------------------------------------------------------------------------");
+
+            System.out.println("--------------------------------------------------------------------------------------------------------------------------------");
 
             if (rs.next()) {
 
                 do {
 
                     System.out.printf(
-                            "%-10d %-8d %-8d %-25s %-12s %-25s %-15s%n",
+                            "| %-8d | %-8d | %-8d | %-25s | %-12s | %-25s | %-15s |%n",
                             rs.getInt("request_id"),
                             rs.getInt("user_id"),
                             rs.getInt("pet_id"),
-                            rs.getTimestamp("request_date"),
+                            String.valueOf(rs.getTimestamp("request_date")),
                             rs.getString("status"),
-                            rs.getTimestamp("review_date"),
+                            String.valueOf(rs.getTimestamp("review_date")),
                             rs.getString("remarks")
                     );
 
-                    System.out.println("--------------------------------------------------------------------------------");
+                    System.out.println("--------------------------------------------------------------------------------------------------------------------------------");
 
                 } while (rs.next());
 
-                System.out.print("\nEnter Request ID to review: ");
+                System.out.print("\n👉 Enter Request ID to review: ");
                 int reviewId = input.nextInt();
 
                 //CHOOSE APPROVE OR REJECT
-                System.out.println("\nWhat would you like to do?");
+                System.out.println("\n⚙ What would you like to do?");
 
-                System.out.println("1. Approve");
-                System.out.println("2. Reject");
+                System.out.println("[1]. ✅ Approve");
+                System.out.println("[2]. ❌ Reject");
 
-                System.out.print("\nChoose: ");
+                System.out.print("\n👉 Choose an option [1/2]: ");
                 int choice = input.nextInt();
 
                 input.nextLine();
@@ -83,15 +86,15 @@ public class ViewRequests {
                         break;
 
                     default:
-                        System.out.println("Invalid choice, try again.");
+                        System.out.println("\n❌ Invalid choice, try again.\n");
                 }
 
             } else {
-                System.out.println("No adoption request found.");
+                System.out.println("\n❌ No adoption request found.\n");
             }
 
         } catch (SQLException e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("\n❌ Error: " + e.getMessage());
         }
     }
 }

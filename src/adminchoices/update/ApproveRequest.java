@@ -16,6 +16,7 @@ public class ApproveRequest {
             String approveQuery
                     = "UPDATE adoption_requests "
                     + "SET "
+                    + "review_date = CURRENT_TIMESTAMP, "
                     + "status = 'Approved', "
                     + "remarks = 'Qualified', "
                     + "archived = 1 "
@@ -74,27 +75,27 @@ public class ApproveRequest {
                         int historyRows = historyPst.executeUpdate();
                         
                         if (historyRows > 0) {
-                            System.out.println("Adoption approved successfully.");
-                            System.out.println("Pet updated successfully.");
-                            System.out.println("Adoption history recorded.");
+                            System.out.println("\n===== ✅ Adoption approved successfully. =====\n");
+                            System.out.println("===== ✅ Pet updated successfully. =====\n");
+                            System.out.println("===== ✅ Adoption history recorded. =====");
                         } else {
-                            System.out.println("Failed to save adoption history.");
+                            System.out.println("\n❌ Failed to save adoption history.");
                         }
                         
                     } else {
-                        System.out.println("Failed to update pet.");
+                        System.out.println("\n❌ Failed to update pet.");
                     }
                     
                 } else {
-                    System.out.println("Request not found.");
+                    System.out.println("\n❌ Request not found.");
                 }
                 
             } else {
-                System.out.println("Failed to update approve request.");
+                System.out.println("\n❌ Failed to update approve request.");
             } 
 
         } catch (SQLException e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("\n❌ Error: " + e.getMessage());
         }
     }
 }

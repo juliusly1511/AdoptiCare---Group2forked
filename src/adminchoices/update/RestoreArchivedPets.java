@@ -20,7 +20,7 @@ public class RestoreArchivedPets {
 
             int petId;
 
-            System.out.print("👉 Enter Pet ID to restore: ");
+            System.out.print("🆔 Enter Pet ID to restore: ");
 
             while (true) {
                 if (!input.hasNextInt()) {
@@ -47,7 +47,7 @@ public class RestoreArchivedPets {
 
             if (!rs.next()) {
                 System.out.println("❌ Archived pet not found.");
-                System.out.println("\nPress Enter to return to the Admin Menu...");
+                System.out.println("\n👉 Press [Enter] to return to the Admin Menu...");
                 input.nextLine();
                 con.close();
                 return;
@@ -58,7 +58,7 @@ public class RestoreArchivedPets {
             
             while(true) {
 
-                System.out.print("⚠ Restore " + name + "? (Y/N): ");
+                System.out.print("⚠ Are you sure to restore " + name + "? (Y/N): ");
                 confirm = input.nextLine().trim();
                 
                 if (confirm.equalsIgnoreCase("Y")) {
@@ -67,11 +67,11 @@ public class RestoreArchivedPets {
                 
                 if (confirm.equalsIgnoreCase("N")) {
                     System.out.println("\n↩ Restore cancelled.");
-                    ArchivePet.archivedPetsMenu();
+                    ArchivePetMenu.archivedPetsMenu();
                     return;
                 }
                 
-                System.out.println("\n❌ Invalid choice: Please enter Y or N.");
+                System.out.println("\n⚠ Invalid choice: Please enter Y or N.");
             }
             
             String Updatesql =
@@ -80,6 +80,8 @@ public class RestoreArchivedPets {
                     + "WHERE pet_id = ?";
             
             PreparedStatement pstUpdate = con.prepareStatement(Updatesql);
+            
+            pstUpdate.setInt(1, petId);
             
             int row = pstUpdate.executeUpdate();
             

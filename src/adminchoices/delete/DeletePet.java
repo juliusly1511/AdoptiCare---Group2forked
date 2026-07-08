@@ -16,7 +16,7 @@ public class DeletePet {
 
         try {
 
-            System.out.println("\n🗑 ===== DELETE PET =====");
+            System.out.println("\n===== 🗑 DELETE PET =====");
 
             int petId;
 
@@ -25,10 +25,10 @@ public class DeletePet {
             //==============================
             while (true) {
 
-                System.out.print("👉 Enter Pet ID: ");
+                System.out.print("🆔 Enter Pet ID (press 0 to cancel): ");
 
                 if (!input.hasNextInt()) {
-                    System.out.println("\n❌ Invalid input: Pet ID must be a number.\n");
+                    System.out.println("\n⚠ Invalid input: Pet ID must be a number.\n");
                     input.nextLine();
                     continue;
                 }
@@ -38,8 +38,13 @@ public class DeletePet {
                 input.nextLine();
 
                 if (petId <= 0) {
-                    System.out.println("\n❌ Pet ID must be greater than 0!");
+                    System.out.println("\n⚠ Pet ID must be greater than 0!\n");
                     continue;
+                }
+                
+                if (petId == 0) {
+                    System.out.println("↩ Returning to Admin Menu...\n");
+                    return;
                 }
 
                 break;
@@ -75,7 +80,7 @@ public class DeletePet {
                 //CONFIRMATION
                 //===================
                 System.out.println("\n⚠ You are about to delete: " + petName);
-                System.out.println("Are you sure? (Y/N): ");
+                System.out.print("Are you sure? (Y/N): ");
                 confirm = input.nextLine().trim();
 
                 if (confirm.equalsIgnoreCase("Y")) {

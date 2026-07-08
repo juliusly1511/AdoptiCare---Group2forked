@@ -32,40 +32,47 @@ public class ViewRequestStatus {
 
             ResultSet rs = pst.executeQuery();
 
-            System.out.printf("\n===== REQUEST STATUS =====\n\n");
+            System.out.printf("\n===== 📄 REQUEST STATUS =====\n");
 
-            System.out.printf("%-12s %-15s %-25s %-10s %-25s %-15s%n",
-                    "Request ID",
-                    "Pet Name",
+            System.out.println("---------------------------------------------------------------------------------------------------------------");
+
+            System.out.printf(
+                    "| %-8s | %-8s | %-8s | %-25s | %-12s | %-25s | %-15s |%n",
+                    "Req ID",
+                    "User ID",
+                    "Pet ID",
                     "Request Date",
                     "Status",
                     "Review Date",
                     "Remarks"
             );
 
-            System.out.println("--------------------------------------------------------------------------------");
+            System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------------------------");
 
             if (rs.next()) {
 
                 do {
-                    System.out.printf("%-12d %-15s %-25s %-10s %-25s %-15s%n",
+                    
+                    System.out.printf(
+                            "| %-8d | %-8d | %-8d | %-25s | %-12s | %-25s | %-15s |%n",
                             rs.getInt("request_id"),
-                            rs.getString("pet_name"),
-                            rs.getTimestamp("request_date"),
+                            rs.getInt("user_id"),
+                            rs.getInt("pet_id"),
+                            String.valueOf(rs.getTimestamp("request_date")),
                             rs.getString("status"),
-                            rs.getTimestamp("review_date"),
+                            String.valueOf(rs.getTimestamp("review_date")),
                             rs.getString("remarks")
                     );
 
-                    System.out.println("--------------------------------------------------------------------------------");
+                    System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------------------------");
 
                 } while (rs.next());
             } else {
-                System.out.println("\nYou have no adoption requests.");
+                System.out.println("\n❌ You have no adoption requests.");
             }
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("\n❌ Error: " + e.getMessage());
         }
     }
 }

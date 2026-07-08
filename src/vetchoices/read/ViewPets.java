@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import util.AgeConverter;
 
 public class ViewPets {
 
@@ -18,31 +19,51 @@ public class ViewPets {
 
             ResultSet rs = st.executeQuery(sql);
 
-            System.out.println("\n===== PET LIST =====");
+            System.out.println("\n===== 🐾 PET LIST =====");
 
-            System.out.printf("%-5s %-15s %-12s %-20s %-5s %-30s %-15s%n,",
-                    "ID", "Pet Name", "Species", "Breed", "Age", "Description", "Adoption Status");
+            System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 
-            System.out.println("-------------------------------------------------------------------------------------------------");
+            System.out.printf(
+                    "| %-6s | %-15s | %-8s | %-14s | %-10s | %-15s | %-30s | %-12s |%n",
+                    "Pet ID",
+                    "Pet Name",
+                    "Gender",
+                    "Age",
+                    "Species",
+                    "Breed",
+                    "Description",
+                    "Status"
+            );
+
+            System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
+            if (!rs.next()) {
+                System.out.println("\n|❌ Pet not found. |");
+            }
             
-            while (rs.next()) {
+            do {
 
-                System.out.printf("%-5d %-15s %-12s %-20s %-5d %-15s%n",
+                System.out.printf(
+                        "| %-6d | %-15s | %-8s | %-14s | %-10s | %-15s | %-30s | %-12s |%n",
                         rs.getInt("pet_id"),
                         rs.getString("pet_name"),
+                        rs.getString("gender"),
+                        AgeConverter.convertAge(rs.getDouble("age")),
                         rs.getString("species"),
                         rs.getString("breed"),
-                        rs.getInt("age"),
                         rs.getString("description"),
-                        rs.getString("adoption_status"));
+                        rs.getString("adoption_status")
+                );
 
-                System.out.println("-------------------------------------------------------------------------------------------------");
-            }
+                System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
+            } while (rs.next());
 
             con.close();
             rs.close();
+
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("\n❌ Error: " + e.getMessage());
         }
     }
 }

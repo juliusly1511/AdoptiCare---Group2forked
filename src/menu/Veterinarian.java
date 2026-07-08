@@ -31,7 +31,7 @@ public class Veterinarian {
             System.out.println("[6] ✏ Update Pet Medical Records Menu");
             System.out.println("[7] ⏻ Logout");
             
-            System.out.print("\n👉 Choose an option [1-7]:");
+            System.out.print("\n👉 Choose an option [1-7]: ");
             choice = input.nextInt();
             
             input.nextLine();
@@ -43,7 +43,7 @@ public class Veterinarian {
                     break;
                     
                 case 2:
-                    SearchPet.searchPet();
+                    SearchPet.searchPetMenu();
                     break;
                     
                 case 3:

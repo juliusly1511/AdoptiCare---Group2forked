@@ -17,61 +17,112 @@ public class CustomerResetPassword {
         try {
             Connection con = DbConnection.getConnection();
             
-            System.out.println("\n===== 🔐 RESET PASSWORD =====");
+            System.out.println("\n===== 🔐 FORGOT PASSWORD =====");
 
-            int userId = Login.loggedInUserId;
-
-            if (userId == -1) {
-                System.out.println("\n⚠ You are not logged in!");
-                return;
+            //===========================
+            // ENTER USERNAME
+            //===========================
+            String username;
+            
+            while (true) {
+                System.out.println("👤 Enter Username: ");
+                username = input.nextLine().trim();
+                
+                if (username.isEmpty()) {
+                    System.out.println("\n❌ Username cannot be empty.\n");
+                    continue;
+                }
+                
+                break;
             }
-
+            
             //==========================================
-            //GET CURRENT PASSWORD BY USING SELECT QUERY
+            //GET USER INFORMATION
             //==========================================
             String sql
-                    = "SELECT password "
+                    = "SELECT user_id, security_question, security_answer "
                     + "FROM users "
-                    + "WHERE user_id = ?";
+                    + "WHERE username = ? AND role = 'Customer'";
             PreparedStatement pst = con.prepareStatement(sql);
             
-            pst.setInt(1, userId);
+            pst.setString(1, username);
             
             ResultSet rs = pst.executeQuery();
             
             if(!rs.next()) {
-                System.out.println("\n❌ User not found!");
+                System.out.println("\n❌ Username not found!");
+                con.close();
                 return;
             }
             
-            //=========================
-            //ASK FOR CURRENT PASSWORD
-            //=========================
-            String storedHashedPassword = rs.getString("password");
+            //===========================================
+            // GETTING USERID OF THE SELECTED USERNAME
+            //===========================================
+            int userId = rs.getInt("user_id");
             
-            System.out.print("Enter current password: ");
-            String currentPassword = input.nextLine();
+            String securityQuestion = rs.getString("security_question");
+            String storedAnswer = rs.getString("security_answer");
             
-            //=======================
-            //VERIFY CURRENT PASSWORD
-            //=======================
-            if(!BCrypt.checkpw(currentPassword, storedHashedPassword)) {
-                System.out.println("\n❌ Invalid password: Your password does not match the current password!");
+            //========================
+            // ASK SECURITY QUESTION
+            //========================
+            System.out.println("\n❓ Security Question: ");
+            System.out.println(securityQuestion);
+            
+            System.out.print("💬 Answer: ");
+            String answer = input.nextLine().trim();
+            
+            //===================================
+            // IF SECURITY ANSWER IS NOT MATCH 
+            //===================================
+            
+            if (!BCrypt.checkpw(answer, storedAnswer)) {
+                System.out.println("\n❌ Incorrect security answer.");
+                con.close();
                 return;
             }
             
             //==================
-            //INPUT NEW PASSWORD
+            // NEW PASSWORD
             //==================
-            System.out.print("🆕 Enter new password: ");
-            String newPassword = input.nextLine();
+            String newPassword;
             
-            System.out.print("🔁 Confirm new password: ");
-            String confirmPassword = input.nextLine();
+            while (true) {
+                System.out.println("🆕 Enter New Password: ");
+                newPassword = input.nextLine();
+                
+                if (newPassword.isEmpty()) {
+                    System.out.println("\n⚠ Password cannot be empty.\n");
+                    continue;
+                }
+                
+                if (newPassword.contains(" ")) {
+                    System.out.println("\n⚠ Password cannot contain spaces.\n");
+                    continue;
+                }
+                
+                if (newPassword.length() < 8) {
+                    System.out.println("\n⚠ Password must be at least 8 characters.\n");
+                    continue;
+                }
+                
+                break;
+            }
             
-            if(!newPassword.equals(confirmPassword)) {
-                System.out.println("\n❌ Password does not match!");
-                return;
+            //========================
+            // CONFIRM PASSWORD
+            //========================
+            
+            while (true) {
+                System.out.println("🔁 Confirm New Password: ");
+                String confirmPassword = input.nextLine();
+                
+                if (!newPassword.equals(confirmPassword)) {
+                    System.out.println("\n⚠Password do not match. Please try again.\n");
+                    continue;
+                }
+                
+                break;
             }
             
             //=================
@@ -79,9 +130,9 @@ public class CustomerResetPassword {
             //=================
             String hashedNewPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt());
             
-            //===============
-            //UPDATE DATABASE
-            //===============
+            //=============================
+            //UPDATE PASSWORD ON DATABASE
+            //=============================
             String updateSql = "UPDATE users "
                     + "SET password = ? "
                     + "WHERE user_id = ?";
@@ -94,10 +145,15 @@ public class CustomerResetPassword {
             int updated = updatePst.executeUpdate();
             
             if(updated > 0) {
-                System.out.println("\n✅ Password successfully changed!");
+                System.out.println("\n✅ Password reset successfully!");
             } else {
-                System.out.println("\n❌ Failed to update password.");
+                System.out.println("\n❌ Failed to reset password.");
             }
+            
+            rs.close();
+            pst.close();
+            updatePst.close();
+            con.close();
             
         } catch (SQLException e) {
             System.out.println("\n❌ Error: " + e.getMessage());

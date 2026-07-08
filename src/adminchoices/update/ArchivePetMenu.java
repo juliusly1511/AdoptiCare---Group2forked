@@ -1,11 +1,13 @@
 package adminchoices.update;
 
+import adminchoices.read.SearchArchivedPet;
 import adminchoices.read.ViewArchivedPets;
 import java.util.Scanner;
 import java.sql.*;
 import database.DbConnection;
+import menu.Admin;
 
-public class ArchivePet {
+public class ArchivePetMenu {
 
     static Scanner input = new Scanner(System.in);
 
@@ -21,43 +23,44 @@ public class ArchivePet {
             System.out.println("[3] ♻ Restore Pet");
             System.out.println("[4] 🔍 Search Archived Pet");
             System.out.println("[5] ↩ Return to Admin Menu");
-            
-            System.out.println("\n👉 Choose an Option [1-5]: ");
-            
+
+            System.out.print("\n👉 Choose an Option [1-5]: ");
+
             int choice;
-            
+
             if (!input.hasNextInt()) {
                 System.out.println("❌ Invalid input!");
                 input.nextLine();
                 continue;
             }
-            
+
             choice = input.nextInt();
-            
+
             input.nextLine();
-            
+
             switch (choice) {
-                
+
                 case 1:
                     archivePet();
                     break;
-                
+
                 case 2:
                     ViewArchivedPets.viewArchivedPets();
                     break;
-                    
+
                 case 3:
                     RestoreArchivedPets.restorePet();
                     break;
-                    
+
                 case 4:
                     SearchArchivedPet.searchArchivedPet();
                     break;
-                    
+
                 case 5:
+                    Admin.adminMenu();
                     System.out.println("\n↩ Returning to Admin Menu...");
                     break;
-                    
+
                 default:
                     System.out.println("❌ Invalid option!");
             }
@@ -71,17 +74,34 @@ public class ArchivePet {
 
         try {
 
-            System.out.print("\n👉 Enter Pet ID: ");
-            int petId = input.nextInt();
+            System.out.print("\n🆔 Enter Pet ID (press 0 to cancel): ");
+            int petId;
 
-            input.nextLine();
+            while (true) {
+                if (!input.hasNextInt()) {
+                    System.out.println("\n⚠ Invalid input: Please enter a number.\n");
+                    input.nextLine();
+                    continue;
+                }
+
+                petId = input.nextInt();
+                
+                input.nextLine();
+
+                if (petId == 0) {
+                    System.out.println("\n↩ Returning to Archive Menu...");
+                    return;
+                }
+                
+                break;
+            }
 
             Connection con = DbConnection.getConnection();
 
             String sql
-                    = "UPDATE pets"
+                    = "UPDATE pets "
                     + "SET archived = 1 "
-                    + "WHERE pet_id = ?;";
+                    + "WHERE pet_id = ?";
 
             PreparedStatement pst = con.prepareStatement(sql);
 
@@ -90,15 +110,15 @@ public class ArchivePet {
             int rows = pst.executeUpdate();
 
             if (rows > 0) {
-                System.out.println("Pet archived.");
+                System.out.println("\n✅ Pet archived successfully.");
             } else {
-                System.out.println("Archive failed.");
+                System.out.println("\n❌ Archive failed.");
             }
 
             con.close();
 
-        } catch (Exception e) {
-            System.out.println(e);
+        } catch (SQLException e) {
+            System.out.println("\n❌ Error: " + e.getMessage());
         }
     }
 }

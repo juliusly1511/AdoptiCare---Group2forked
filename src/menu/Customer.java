@@ -2,9 +2,8 @@ package menu;
 
 import auth.Login;
 import customerchoices.ViewAvailablePets;
-import customerchoices.ViewPetDetails;
 import customerchoices.SubmitAdoptionRequest;
-import customerchoices.SearchPet;
+import customerchoices.SearchPetMenu;
 import customerchoices.ViewRequestStatus;
 import java.util.Scanner;
 
@@ -39,7 +38,7 @@ public class Customer {
                     break;
                     
                 case 2:
-                    SearchPet.searchPet();
+                    SearchPetMenu.searchPetMenu();
                     break;
                     
                 case 3:
