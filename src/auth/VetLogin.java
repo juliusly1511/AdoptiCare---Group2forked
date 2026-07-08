@@ -53,19 +53,19 @@ public class VetLogin {
                 System.out.print("🔒 Password: ");
                 password = input.nextLine();
 
-                if (username.isEmpty()) {
+                if (password.isEmpty()) {
                     System.out.println("\n⚠ Password cannot be empty!\n");
                     System.out.println("👉 Please enter a password.\n");
                     continue;
                 }
 
-                if (username.contains(" ")) {
+                if (password.contains(" ")) {
                     System.out.println("\n⚠ Password cannot contain spaces.");
                     System.out.println("👉 Use letters, numbers, or underscores (_).\n");
                     continue;
                 }
 
-                if (username.length() < 8) {
+                if (password.length() < 8) {
                     System.out.println("\n⚠ Password must be atleast 8 or more than letters!\n");
                     continue;
                 }

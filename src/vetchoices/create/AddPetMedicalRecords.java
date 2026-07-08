@@ -109,7 +109,7 @@ public class AddPetMedicalRecords {
 
                         nextSched = Date.valueOf(suggestedDate);
 
-                        System.out.println("\n📅 Suggested Next Schedule: " + nextSched);
+                        System.out.println("\n📅 Suggested Next Schedule: " + nextSched); // July 8, 2026 = 2027-07-08
 
                         System.out.print("🗓 Enter Next Schedule " + "(Press [ENTER] to use suggested): ");
                         
@@ -141,15 +141,15 @@ public class AddPetMedicalRecords {
                 pst.setString(3, healthCondition);
 
                 if (lastDate == null) {
-                    pst.setNull(4, Types.DATE);
+                    pst.setNull(4, Types.DATE); //NULL
                 } else {
-                    pst.setDate(4, lastDate);
+                    pst.setDate(4, lastDate); //LAST DATE USER INPUT
                 }
 
                 if (nextSched == null) {
-                    pst.setNull(5, Types.DATE);
+                    pst.setNull(5, Types.DATE); //NULL
                 } else {
-                    pst.setDate(5, nextSched);
+                    pst.setDate(5, nextSched); // 2027-07-08 / 2026-10-18
                 }
 
                 pst.setString(6, status);

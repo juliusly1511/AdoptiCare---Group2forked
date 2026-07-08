@@ -158,8 +158,8 @@ public class UpdatePet {
             String desc = input.nextLine();
 
             String queryPet
-                    = "UPDATE pets"
-                    + "SET pet_name = ?,"
+                    = "UPDATE pets "
+                    + "SET pet_name = ?, "
                     + "gender = ?, "
                     + "age = ?, "
                     + "species = ?, "
@@ -499,7 +499,7 @@ public class UpdatePet {
 
             String queryName
                     = "UPDATE pets "
-                    + "SET desc = ? "
+                    + "SET description = ? "
                     + "WHERE pet_id = ?";
 
             PreparedStatement pst = con.prepareStatement(queryName);

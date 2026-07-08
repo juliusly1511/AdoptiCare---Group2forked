@@ -17,6 +17,7 @@ public class ViewRequestStatus {
             String queryRequest
                     = "SELECT ar.request_id, "
                     + "p.pet_name, "
+                    + "p.pet_id, "
                     + "ar.request_date, "
                     + "ar.status, "
                     + "ar.review_date,"
@@ -37,9 +38,9 @@ public class ViewRequestStatus {
             System.out.println("---------------------------------------------------------------------------------------------------------------");
 
             System.out.printf(
-                    "| %-8s | %-8s | %-8s | %-25s | %-12s | %-25s | %-15s |%n",
+                    "| %-8s | %-12s | %-8s | %-25s | %-12s | %-25s | %-15s |%n",
                     "Req ID",
-                    "User ID",
+                    "Pet Name",
                     "Pet ID",
                     "Request Date",
                     "Status",
@@ -54,9 +55,9 @@ public class ViewRequestStatus {
                 do {
                     
                     System.out.printf(
-                            "| %-8d | %-8d | %-8d | %-25s | %-12s | %-25s | %-15s |%n",
+                            "| %-8d | %-12s | %-8d | %-25s | %-12s | %-25s | %-15s |%n",
                             rs.getInt("request_id"),
-                            rs.getInt("user_id"),
+                            rs.getString("pet_name"),
                             rs.getInt("pet_id"),
                             String.valueOf(rs.getTimestamp("request_date")),
                             rs.getString("status"),

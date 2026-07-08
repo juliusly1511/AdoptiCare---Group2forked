@@ -23,7 +23,7 @@ public class AdoptiCareMain {
             System.out.println("\n🏡 Welcome to AdoptiCare! 🐶🐱 ");
 
             System.out.println("[1] 👤 Customer Login");
-            System.out.println("[2] 🔐 Reset Passoword (Customer)");
+            System.out.println("[2] 🔐 Reset Password (Customer)");
             System.out.println("[3] 👑 Admin Login");
             System.out.println("[4] 👨‍⚕ Veterinarian Login");
             System.out.println("[5] 📝 Register");
