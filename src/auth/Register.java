@@ -75,15 +75,10 @@ public class Register {
 
                 System.out.print("🔒 Password: ");
                 password = input.nextLine();
-                   //password.equals to password.matches
-                if (!password.matches("\\S+")) {
-                    System.out.println("\n⚠ Password cannot contain spaces!");
-
 
                 if (!password.matches("\\S+")) {
                     System.out.println("\n⚠ Password cannot contain spaces!\n");
                     System.out.println("👉 Use letters, numbers, or underscores (_).\n");
-
                     continue;
                 }
 
@@ -91,14 +86,9 @@ public class Register {
                     System.out.println("\n⚠ Password must be atleast 8 characters!\n");
                     continue;
                 }
-                //!password.trim to password.trim - removed "!"
-                if (password.trim().isEmpty()) {
-                    System.out.println("\n⚠ Invalid username: Fill the username.");
-
 
                 if (password.trim().isEmpty()) {
                     System.out.println("\n⚠ Invalid password: Please enter a password.\n");
-
                     continue;
                 }
                 break;

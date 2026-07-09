@@ -3,12 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/USER/Documents/GitHub/AdoptiCare---Group2/src/adopticare/AdoptiCareMain.java</file>
-            <file>file:/C:/Users/USER/Documents/GitHub/AdoptiCare---Group2/src/vetchoices/update/UpdatePetMedicalRecords.java</file>
-            <file>file:/C:/Users/USER/Documents/GitHub/AdoptiCare---Group2/src/customerchoices/SearchPet.java</file>
-            <file>file:/C:/Users/USER/Documents/GitHub/AdoptiCare---Group2/src/menu/Admin.java</file>
-            <file>file:/C:/Users/USER/Documents/GitHub/AdoptiCare---Group2/src/customerchoices/ViewAvailablePets.java</file>
-            <file>file:/C:/Users/USER/Documents/GitHub/AdoptiCare---Group2/src/customerchoices/SubmitAdoptionRequest.java</file>
+            <file>file:/C:/Users/USER/Downloads/AdoptiCare---Group2-master/src/adminchoices/update/RestoreArchivedPets.java</file>
+            <file>file:/C:/Users/USER/Downloads/AdoptiCare---Group2-master/src/adminchoices/create/AddPet.java</file>
         </group>
     </open-files>
 </project-private>
