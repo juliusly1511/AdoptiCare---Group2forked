@@ -5,8 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Scanner;
-import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
+import util.PasswordHash;
 
 public class AdminLogin {
 
@@ -76,20 +75,24 @@ public class AdminLogin {
 
             Connection con = DbConnection.getConnection();
 
-            String queryAdmin = "SELECT user_id, role FROM users WHERE username = ? AND password = ?";
+            // Passwords are BCrypt-hashed in DB, so we must verify using the stored hash
+            String queryAdmin = "SELECT user_id, role, password FROM users WHERE username = ?";
 
             PreparedStatement pst = con.prepareStatement(queryAdmin);
 
             pst.setString(1, username);
-            pst.setString(2, password);
 
             ResultSet rs = pst.executeQuery();
 
             if (rs.next()) {
 
-                System.out.println("\n✅ Login Successfully!");
+                String storedHash = rs.getString("password");
+                if (PasswordHash.verifyPassword(password, storedHash)) {
+                    System.out.println("\n✅ Login Successfully!");
+                    return rs.getString("role");
+                }
 
-                return rs.getString("role");
+                System.out.println("\n❌ Incorrect username or password.");
             } else {
                 System.out.println("\n❌ Incorrect username or password.");
             }
