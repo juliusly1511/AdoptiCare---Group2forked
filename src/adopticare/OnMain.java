@@ -6,8 +6,8 @@ public class OnMain {
 
     public static void main(String[] args) {
 
-        // Seed default admin & veterinarian accounts (only if they don't exist)
-        AdminVetSeeder.seedDefaultAccounts();
+        // Ensure admin & veterinarian accounts exist (prompt if missing)
+        AdminVetSeeder.ensureAdminVetAccountsExist();
 
         //STARTING POINT
         AdoptiCareMain.onSystem();
